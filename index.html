@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.4</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.5</title>
     
-    <link rel="manifest" href="./manifest.json?v=5.4">
+    <link rel="manifest" href="./manifest.json?v=5.5">
     
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.4">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=5.4">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.5">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=5.5">
 
     <style>
         :root {
@@ -295,7 +295,7 @@
         .info-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
         .info-value { color: var(--text-main); font-weight: 600; font-size: 13px; line-height: 1.4; }
         
-        .result { margin-top: 16px; padding: 16px 16px; background-color: var(--highlight-bg); border-radius: 16px; border: 1px solid var(--border-color); border-top: 4px solid var(--primary-color); }
+        .result { margin-top: 16px; padding: 16px 16px; background-color: var(--highlight-bg); border-radius: 16px; border: 1px solid var(--border-color); }
         .result h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 14px; font-weight: 800; }
         .total-highlight { font-size: 12px; margin-bottom: 12px; background: #f4ede4; padding: 10px 14px; border-radius: 10px; color: var(--primary-color); }
         .step { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
@@ -370,7 +370,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=5.4')
+            navigator.serviceWorker.register('./sw.js?v=5.5')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
