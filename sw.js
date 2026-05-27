@@ -1,8 +1,9 @@
-const CACHE_NAME = 'coffee-assistant-v1.1'; // 升级缓存版本号
+const CACHE_NAME = 'coffee-assistant-v2.3'; // 升级缓存版本号
 // 需要拦截并缓存的文件列表
 const ASSETS = [
   './index.html',
   './manifest.json',
+  './favicon.svg',
   'https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap'
 ];
 
