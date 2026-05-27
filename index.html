@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.3</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.4</title>
     
-    <link rel="manifest" href="./manifest.json?v=5.3">
+    <link rel="manifest" href="./manifest.json?v=5.4">
     
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.3">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=5.3">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.4">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=5.4">
 
     <style>
         :root {
@@ -26,6 +26,10 @@
             --highlight-bg: #fdfcfb;
         }
 
+        html {
+            background-color: var(--bg-color);
+            min-height: 100%;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
@@ -33,6 +37,8 @@
             max-width: 460px;
             margin: 0 auto;
             padding: 15px 10px;
+            min-height: 100vh;
+            min-height: 100dvh;
             line-height: 1.4;
             -webkit-font-smoothing: antialiased;
         }
@@ -289,9 +295,7 @@
         .info-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
         .info-value { color: var(--text-main); font-weight: 600; font-size: 13px; line-height: 1.4; }
         
-        button#mainBtn { width: 100%; padding: 14px; background-color: var(--primary-color); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; letter-spacing: 1px; cursor: pointer; margin-top: 24px; line-height: 1; }
-        
-        .result { margin-top: 16px; padding: 16px 16px; background-color: var(--highlight-bg); border-radius: 16px; border: 1px solid var(--border-color); border-top: 4px solid var(--primary-color); display: none; }
+        .result { margin-top: 16px; padding: 16px 16px; background-color: var(--highlight-bg); border-radius: 16px; border: 1px solid var(--border-color); border-top: 4px solid var(--primary-color); }
         .result h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 14px; font-weight: 800; }
         .total-highlight { font-size: 12px; margin-bottom: 12px; background: #f4ede4; padding: 10px 14px; border-radius: 10px; color: var(--primary-color); }
         .step { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
@@ -360,14 +364,13 @@
 
     <details class="recipe-details-box" id="recipeDetails"><summary>查看当前方案策略详述</summary><div class="details-content"><div class="info-item"><span class="info-label">推荐水温</span><span class="info-value" id="viewTemp">-</span></div><div class="info-item"><span class="info-label">推荐器具</span><span class="info-value" id="viewGear">-</span></div><div class="info-item"><span class="info-label">研磨度锚点</span><span class="info-value" id="viewGrind">-</span></div><div class="info-item"><span class="info-label">预估时间</span><span class="info-value" id="viewTime">-</span></div><div class="info-item full-width"><span class="info-label">方案核心设计哲学</span><span class="info-value" id="viewFlavor">-</span></div></div></details>
     
-    <button onclick="calculateBrew()" id="mainBtn">生成冲煮看板</button>
     <div id="resultBox" class="result"><h3>冲煮看板</h3><div class="total-highlight">目标总水：<strong id="totalWater" style="color:var(--accent-color); font-size:16px;"></strong> g | 粉水比：<strong><span id="currentRatio"></span></strong> | 咖啡重量：<strong id="currentBeans"></strong> g</div><div id="stepsList"></div></div>
 </div>
 
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=5.3')
+            navigator.serviceWorker.register('./sw.js?v=5.4')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -390,6 +393,7 @@
         textEl.innerText = v;
         inputEl.value = v;
         saveBeans(v);
+        renderDashboard();
     }
 
     function enableManualInput() {
@@ -417,6 +421,7 @@
 
         inputEl.style.display = 'none';
         textEl.style.display = '';
+        renderDashboard();
     }
 
     (function initRelativeDragSlider() {
@@ -500,9 +505,7 @@
     }
     
     function onRatioChange() {
-        if(document.getElementById('resultBox').style.display === 'block') {
-            calculateBrew();
-        }
+        renderDashboard();
     }
     
     function applyRecipeKey(key, { writeHash = true, persist = true } = {}) {
@@ -521,43 +524,42 @@
 
     function onRecipeChange() {
         applyRecipeKey(document.getElementById('recipe').value);
-        document.getElementById('resultBox').style.display = 'none';
+        renderDashboard();
     }
 
     window.addEventListener('hashchange', () => {
         const k = location.hash.replace(/^#/, '');
         if (recipes[k] && document.getElementById('recipe').value !== k) {
             applyRecipeKey(k, { writeHash: false });
-            document.getElementById('resultBox').style.display = 'none';
+            renderDashboard();
         }
     });
     
-    function calculateBrew() {
+    function renderDashboard() {
         const beans = parseFloat(inputEl.value || textEl.innerText);
-        const recipeKey = document.getElementById('recipe').value; 
-        const recipe = recipes[recipeKey]; 
-        if (!beans || beans <= 0) { alert("请确定正确的咖啡豆克重！"); return; } 
-        
-        let activeRatio = recipe.hasDynamicRatio ? parseFloat(ratioSelect.value) : recipe.fixedRatio; 
-        const totalWater = beans * activeRatio; 
+        if (!beans || beans <= 0) return;
+        const recipeKey = document.getElementById('recipe').value;
+        const recipe = recipes[recipeKey];
+        if (!recipe) return;
+
+        const activeRatio = recipe.hasDynamicRatio ? parseFloat(ratioSelect.value) : recipe.fixedRatio;
+        const totalWater = beans * activeRatio;
         document.getElementById('totalWater').innerText = totalWater.toFixed(1);
         document.getElementById('currentRatio').innerText = `1 : ${activeRatio}`;
         document.getElementById('currentBeans').innerText = beans.toFixed(1);
-        
-        const stepsList = document.getElementById('stepsList'); 
-        stepsList.innerHTML = ''; 
-        let cumulativeWater = 0; 
-        
-        recipe.steps.forEach((step) => { 
-            const stepWater = totalWater * step.percentage; 
-            cumulativeWater += stepWater; 
-            const stepDiv = document.createElement('div'); 
-            stepDiv.className = 'step'; 
+
+        const stepsList = document.getElementById('stepsList');
+        stepsList.innerHTML = '';
+        let cumulativeWater = 0;
+
+        recipe.steps.forEach((step) => {
+            const stepWater = totalWater * step.percentage;
+            cumulativeWater += stepWater;
+            const stepDiv = document.createElement('div');
+            stepDiv.className = 'step';
             stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">注水至：<strong style="color:var(--primary-color); font-size:15px;">${cumulativeWater.toFixed(1)}g</strong> <span style="color:var(--text-muted); font-size:11px;">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
-            stepsList.appendChild(stepDiv); 
-        }); 
-        
-        document.getElementById('resultBox').style.display = 'block';
+            stepsList.appendChild(stepDiv);
+        });
     }
 
     const detailsEl = document.getElementById('recipeDetails');
@@ -597,6 +599,8 @@
         try { savedOpen = localStorage.getItem(DETAILS_KEY); } catch (_) {}
         if (savedOpen === '1') detailsEl.setAttribute('open', '');
         else if (savedOpen === '0') detailsEl.removeAttribute('open');
+
+        renderDashboard();
     };
 </script>
 
