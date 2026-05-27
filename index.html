@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.5</title>
-    
-    <link rel="manifest" href="./manifest.json?v=5.5">
-    
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.6</title>
+
+    <link rel="manifest" href="./manifest.json?v=5.6">
+
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.5">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=5.5">
+
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.6">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=5.6">
 
     <style>
         :root {
@@ -57,7 +57,6 @@
         .bg-abstract-bottom { position: absolute; bottom: -50px; left: -40px; width: 160px; height: 160px; opacity: 0.05; z-index: -1; pointer-events: none; }
 
         .brand-header { text-align: left; margin-bottom: 16px; }
-        /* 1、去掉英文标题的 letter-spacing */
         .brand-header .en-title { font-size: 11px; font-weight: 700; color: var(--accent-color); text-transform: uppercase; margin-bottom: 2px; }
         .brand-header .zh-title { font-size: 20px; font-weight: 800; color: var(--primary-color); }
 
@@ -238,13 +237,13 @@
         }
 
         select {
-            width: 100%; 
+            width: 100%;
             height: 100%;
-            padding: 0 36px 0 12px; 
-            border: none; 
-            font-size: 14px; 
-            background: transparent; 
-            color: var(--text-main); 
+            padding: 0 36px 0 12px;
+            border: none;
+            font-size: 14px;
+            background: transparent;
+            color: var(--text-main);
             outline: none;
             cursor: pointer;
             -webkit-appearance: none;
@@ -279,29 +278,33 @@
         summary { padding: 10px 14px; background: #f4ede4; color: var(--primary-color); font-weight: 700; font-size: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         summary::after { content: ""; width: 5px; height: 5px; border-right: 2px solid var(--primary-color); border-bottom: 2px solid var(--primary-color); transform: rotate(45deg); }
         details[open] summary::after { transform: rotate(-135deg); }
-        
+
         .recipe-details-box .details-content { display: none; }
-        details[open] .details-content { 
-            padding: 14px 16px; 
-            font-size: 12px; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 10px 16px; 
-            background: #fff; 
+        details[open] .details-content {
+            padding: 14px 16px;
+            font-size: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 16px;
+            background: #fff;
         }
 
         .info-item { display: flex; flex-direction: column; }
         .info-item.full-width { grid-column: span 2; border-top: 1px dashed #f0eae1; padding-top: 8px; }
         .info-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
         .info-value { color: var(--text-main); font-weight: 600; font-size: 13px; line-height: 1.4; }
-        
-        .result { margin-top: 16px; padding: 16px 16px; background-color: var(--highlight-bg); border-radius: 16px; border: 1px solid var(--border-color); }
-        .result h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 14px; font-weight: 800; }
+
+        .result { margin-top: 16px; background-color: var(--highlight-bg); border-radius: 14px; border: 1px solid var(--border-color); overflow: hidden; }
+        .result h3 { margin: 0; padding: 10px 14px; background: #f4ede4; color: var(--primary-color); font-weight: 700; font-size: 12px; }
+        .result-body { padding: 14px 16px; background: #fff; }
         .total-highlight { font-size: 12px; margin-bottom: 12px; background: #f4ede4; padding: 10px 14px; border-radius: 10px; color: var(--primary-color); }
+        .dashboard-total { color: var(--accent-color); font-size: 16px; }
         .step { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
         .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .step-title { font-weight: 700; color: var(--primary-color); margin-bottom: 2px; display: flex; justify-content: space-between; font-size: 13px; }
         .step-details { font-size: 14px; color: #000; margin-bottom: 2px; }
+        .step-cumulative { color: var(--primary-color); font-size: 15px; }
+        .step-delta { color: var(--text-muted); font-size: 11px; }
         .step-note { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; }
     </style>
 </head>
@@ -315,7 +318,7 @@
         <div class="en-title">Coffee Brewing Assistant</div>
         <div class="zh-title">咖啡冲煮助手</div>
     </div>
-    
+
     <div class="input-group">
         <label>咖啡粉重量:</label>
         <div class="glass-panel">
@@ -362,15 +365,34 @@
         </div>
     </div>
 
-    <details class="recipe-details-box" id="recipeDetails"><summary>查看当前方案策略详述</summary><div class="details-content"><div class="info-item"><span class="info-label">推荐水温</span><span class="info-value" id="viewTemp">-</span></div><div class="info-item"><span class="info-label">推荐器具</span><span class="info-value" id="viewGear">-</span></div><div class="info-item"><span class="info-label">研磨度锚点</span><span class="info-value" id="viewGrind">-</span></div><div class="info-item"><span class="info-label">预估时间</span><span class="info-value" id="viewTime">-</span></div><div class="info-item full-width"><span class="info-label">方案核心设计哲学</span><span class="info-value" id="viewFlavor">-</span></div></div></details>
-    
-    <div id="resultBox" class="result"><h3>冲煮看板</h3><div class="total-highlight">目标总水：<strong id="totalWater" style="color:var(--accent-color); font-size:16px;"></strong> g | 粉水比：<strong><span id="currentRatio"></span></strong> | 咖啡重量：<strong id="currentBeans"></strong> g</div><div id="stepsList"></div></div>
+    <details class="recipe-details-box" id="recipeDetails">
+        <summary>冲煮方案</summary>
+        <div class="details-content">
+            <div class="info-item"><span class="info-label">推荐水温</span><span class="info-value" id="viewTemp">-</span></div>
+            <div class="info-item"><span class="info-label">推荐器具</span><span class="info-value" id="viewGear">-</span></div>
+            <div class="info-item"><span class="info-label">研磨度锚点</span><span class="info-value" id="viewGrind">-</span></div>
+            <div class="info-item"><span class="info-label">预估时间</span><span class="info-value" id="viewTime">-</span></div>
+            <div class="info-item full-width"><span class="info-label">方案核心设计哲学</span><span class="info-value" id="viewFlavor">-</span></div>
+        </div>
+    </details>
+
+    <div id="resultBox" class="result">
+        <h3>冲煮看板</h3>
+        <div class="result-body">
+            <div class="total-highlight">
+                目标总水：<strong id="totalWater" class="dashboard-total"></strong> g
+                | 粉水比：<strong><span id="currentRatio"></span></strong>
+                | 咖啡粉重量：<strong id="currentBeans"></strong> g
+            </div>
+            <div id="stepsList"></div>
+        </div>
+    </div>
 </div>
 
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=5.5')
+            navigator.serviceWorker.register('./sw.js?v=5.6')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -475,23 +497,91 @@
     })();
 
     const recipes = {
-        "classic": { hasDynamicRatio: true, defaultRatio: "15", temp: "91℃ - 93℃", gear: "V60 / 蛋糕滤杯均可", grind: "中等研磨，日常基准", time: "2'15\" - 2'45\"", flavor: "最普及的经典日常风味校准模型。通过均匀拆分三段水量平衡整体的酸、甜与浓度，不挑咖啡豆的烘焙度与产区，极高容错率。如果在面对一支新拿到的豆子不知道如何下手时，推荐先用此方案测试豆子的基本风味轮廓。", steps: [ { name: "第一段 · 闷蒸", percentage: 0.20, note: "充分打湿粉床，闷蒸 30 秒以均匀释放二氧化碳气体。" }, { name: "第二段 · 核心萃取", percentage: 0.40, note: "由内向外稳定绕圈，稳定均匀水流，全力逼出中段高甜感。" }, { name: "第三段 · 尾段稀释", percentage: 0.40, note: "转为平稳的中心温柔注水，避免过度扰动引起尾段杂质与苦涩。" } ] },
-        "four_six": { hasDynamicRatio: false, fixedRatio: 15, temp: "浅烘93℃ / 中烘88℃ / 深烘83℃", gear: "Hario V60-02 经典螺旋纹", grind: "粗研磨，砂糖质感颗粒", time: "3'15\" - 3'30\"", flavor: "粕谷哲世界冠军成名作。将总注水量解构为 4:6 两阶段。前 40% 的前两注用于决定酸甜平衡，第一注少则偏甜；后 60% 的三注用于控制最终浓度。因为采用了极粗的研磨度，所以强烈建议针对咖啡豆的不同烘焙度实施严格的降温策略，例如深烘低至 83℃以保障甜感且完全避开焦苦。", steps: [ { name: "第一段 · 决定酸度", percentage: 0.20, note: "0:00 快速注入。粗研磨下释放轻快、明亮的酸质活力。" }, { name: "第二段 · 决定甜度", percentage: 0.20, note: "0:45 注入。若追求更高的高厚甜感，此段水量可适当增加。" }, { name: "第三段 · 提升浓度", percentage: 0.20, note: "1:25 注入。后三段每次注水前，务必等待滤杯内的咖啡液完全流干、粉床露出后再行注入下一段。" }, { name: "第四段 · 控制流速", percentage: 0.20, note: "2:05 注入。保持断水节奏，精准稳定重力水流。" }, { name: "第五段 · 最后收尾", percentage: 0.20, note: "2:35 灌入最后1/5水量，随后静置，等待最后滴滤滤干完成。" } ] },
-        "one_pour": { hasDynamicRatio: false, fixedRatio: 16, temp: "90℃ - 92℃", gear: "Origami / V60 均可", grind: "中细研磨，提升阻力", time: "1'50\" - 2'10\"", flavor: "极致的一刀流法则。核心逻辑是利用粉床自身的持水容积与滤纸阻力一次成型。冲煮中途没有任何由于多次断水、水位起伏带来的非必要物理扰动和杂质下沉。极易冲出极其干净、轻盈、通透如清茶般的柔和果酸质感，适合高品质高海拔的浅烘单品豆款。", steps: [ { name: "第一段 · 充分闷蒸", percentage: 0.20, note: "注入少量热水充分浸润每一个粉末微粒，闷蒸 30 秒彻底排气。" }, { name: "第二段 · 一注拉满", percentage: 0.80, note: "中心温柔连续注水，由内向外缓慢打圈，中途绝不停顿，一口气拉高水位至总克重，随后彻底放手静置等它流尽。" } ] },
-        "carlos": { hasDynamicRatio: false, fixedRatio: 16.1, temp: "91℃ 恒温", gear: "平底滤杯，Orea V3 或蛋糕均可", grind: "中粗研磨", time: "2'30\"，每段严格隔 30 秒", flavor: "Carlos Medina世界赛场物理哲学。通过平底滤杯天然的垂直平铺结构，配合极其严格的“高频低量”五段均分推进，追求绝对纯粹的“物理萃取均匀度”。几乎杜绝了锥形滤杯中心粉层过厚、侧壁逃逸的通病。冲煮出的风味轮廓极其清晰、稳定，呈现出高级、典雅且极其高雅的干净甜感。", steps: [ { name: "第一段 · 0:00 闷蒸", percentage: 0.20, note: "精准绕圈注入，打湿每一颗粉末，建立均匀粉床。" }, { name: "第二段 · 0:30 注水", percentage: 0.20, note: "严格保持固定的注水高度和画圈半径，轻柔向前推进。" }, { name: "第三段 · 1:00 注水", percentage: 0.20, note: "水流控制力度需极致平稳，有意减少物理扰动对底部的冲击。" }, { name: "第四段 · 1:30 注水", percentage: 0.20, note: "细水流稳定精准注入，维持均衡的水层高度。" }, { name: "第五段 · 2:00 精准收尾", percentage: 0.20, note: "最后一段注入完毕，洗下多余侧壁碎屑，静置等待完全流干。" } ] },
-        "du": { hasDynamicRatio: false, fixedRatio: 15, temp: "94℃ 极端高温", gear: "Origami 配合大孔高流速", grind: "极细研磨，面粉质感", time: "1'40\" 快打战", flavor: "杜嘉宁高温快冲极速流。反常规地使用“极细研磨+极端高温+超级高流速”的大水流快速推进。核心精髓是用高水温与细研磨在极短时间内榨出最前段的高挥发性花香与水果酸质，在后段苦涩杂质还没来得及析出前，1 分 40 秒内强行结束冲煮。能够冲出爆发力惊人的花果香气与扎实的醇厚度。", steps: [ { name: "第一段 · 快冲闷蒸", percentage: 0.20, note: "约 6g/s 的大水流大动作快速注入，迅速激活前段高活性的酸质。" }, { name: "第二段 · 中心控速", percentage: 0.3333, note: "放缓水流至大约 4g/s 紧贴粉饼中心绕小圈，有意延长接触时间逼出高浓甜感与醇厚Body。" }, { name: "第三段 · 大水冲刺收尾", percentage: 0.4667, note: "重新恢复 5g/s 大水流猛烈冲刺至总量，冲刷粉床，务必在 1 分 40秒内结束冲煮，极速切断。" } ] }
+        classic: {
+            hasDynamicRatio: true,
+            defaultRatio: "15",
+            temp: "91℃ - 93℃",
+            gear: "V60 / 蛋糕滤杯均可",
+            grind: "中等研磨，日常基准",
+            time: "2'15\" - 2'45\"",
+            flavor: "最普及的经典日常风味校准模型。通过均匀拆分三段水量平衡整体的酸、甜与浓度，不挑咖啡豆的烘焙度与产区，极高容错率。如果在面对一支新拿到的豆子不知道如何下手时，推荐先用此方案测试豆子的基本风味轮廓。",
+            steps: [
+                { name: "第一段 · 闷蒸",     percentage: 0.20, note: "充分打湿粉床，闷蒸 30 秒以均匀释放二氧化碳气体。" },
+                { name: "第二段 · 核心萃取", percentage: 0.40, note: "由内向外稳定绕圈，稳定均匀水流，全力逼出中段高甜感。" },
+                { name: "第三段 · 尾段稀释", percentage: 0.40, note: "转为平稳的中心温柔注水，避免过度扰动引起尾段杂质与苦涩。" },
+            ],
+        },
+        four_six: {
+            hasDynamicRatio: false,
+            fixedRatio: 15,
+            temp: "浅烘93℃ / 中烘88℃ / 深烘83℃",
+            gear: "Hario V60-02 经典螺旋纹",
+            grind: "粗研磨，砂糖质感颗粒",
+            time: "3'15\" - 3'30\"",
+            flavor: "粕谷哲世界冠军成名作。将总注水量解构为 4:6 两阶段。前 40% 的前两注用于决定酸甜平衡，第一注少则偏甜；后 60% 的三注用于控制最终浓度。因为采用了极粗的研磨度，所以强烈建议针对咖啡豆的不同烘焙度实施严格的降温策略，例如深烘低至 83℃以保障甜感且完全避开焦苦。",
+            steps: [
+                { name: "第一段 · 决定酸度", percentage: 0.20, note: "0:00 快速注入。粗研磨下释放轻快、明亮的酸质活力。" },
+                { name: "第二段 · 决定甜度", percentage: 0.20, note: "0:45 注入。若追求更高的高厚甜感，此段水量可适当增加。" },
+                { name: "第三段 · 提升浓度", percentage: 0.20, note: "1:25 注入。后三段每次注水前，务必等待滤杯内的咖啡液完全流干、粉床露出后再行注入下一段。" },
+                { name: "第四段 · 控制流速", percentage: 0.20, note: "2:05 注入。保持断水节奏，精准稳定重力水流。" },
+                { name: "第五段 · 最后收尾", percentage: 0.20, note: "2:35 灌入最后1/5水量，随后静置，等待最后滴滤滤干完成。" },
+            ],
+        },
+        one_pour: {
+            hasDynamicRatio: false,
+            fixedRatio: 16,
+            temp: "90℃ - 92℃",
+            gear: "Origami / V60 均可",
+            grind: "中细研磨，提升阻力",
+            time: "1'50\" - 2'10\"",
+            flavor: "极致的一刀流法则。核心逻辑是利用粉床自身的持水容积与滤纸阻力一次成型。冲煮中途没有任何由于多次断水、水位起伏带来的非必要物理扰动和杂质下沉。极易冲出极其干净、轻盈、通透如清茶般的柔和果酸质感，适合高品质高海拔的浅烘单品豆款。",
+            steps: [
+                { name: "第一段 · 充分闷蒸", percentage: 0.20, note: "注入少量热水充分浸润每一个粉末微粒，闷蒸 30 秒彻底排气。" },
+                { name: "第二段 · 一注拉满", percentage: 0.80, note: "中心温柔连续注水，由内向外缓慢打圈，中途绝不停顿，一口气拉高水位至总克重，随后彻底放手静置等它流尽。" },
+            ],
+        },
+        carlos: {
+            hasDynamicRatio: false,
+            fixedRatio: 16.1,
+            temp: "91℃ 恒温",
+            gear: "平底滤杯，Orea V3 或蛋糕均可",
+            grind: "中粗研磨",
+            time: "2'30\"，每段严格隔 30 秒",
+            flavor: "Carlos Medina世界赛场物理哲学。通过平底滤杯天然的垂直平铺结构，配合极其严格的“高频低量”五段均分推进，追求绝对纯粹的“物理萃取均匀度”。几乎杜绝了锥形滤杯中心粉层过厚、侧壁逃逸的通病。冲煮出的风味轮廓极其清晰、稳定，呈现出高级、典雅且极其高雅的干净甜感。",
+            steps: [
+                { name: "第一段 · 0:00 闷蒸",   percentage: 0.20, note: "精准绕圈注入，打湿每一颗粉末，建立均匀粉床。" },
+                { name: "第二段 · 0:30 注水",   percentage: 0.20, note: "严格保持固定的注水高度和画圈半径，轻柔向前推进。" },
+                { name: "第三段 · 1:00 注水",   percentage: 0.20, note: "水流控制力度需极致平稳，有意减少物理扰动对底部的冲击。" },
+                { name: "第四段 · 1:30 注水",   percentage: 0.20, note: "细水流稳定精准注入，维持均衡的水层高度。" },
+                { name: "第五段 · 2:00 精准收尾", percentage: 0.20, note: "最后一段注入完毕，洗下多余侧壁碎屑，静置等待完全流干。" },
+            ],
+        },
+        du: {
+            hasDynamicRatio: false,
+            fixedRatio: 15,
+            temp: "94℃ 极端高温",
+            gear: "Origami 配合大孔高流速",
+            grind: "极细研磨，面粉质感",
+            time: "1'40\" 快打战",
+            flavor: "杜嘉宁高温快冲极速流。反常规地使用“极细研磨+极端高温+超级高流速”的大水流快速推进。核心精髓是用高水温与细研磨在极短时间内榨出最前段的高挥发性花香与水果酸质，在后段苦涩杂质还没来得及析出前，1 分 40 秒内强行结束冲煮。能够冲出爆发力惊人的花果香气与扎实的醇厚度。",
+            steps: [
+                { name: "第一段 · 快冲闷蒸",     percentage: 0.20,   note: "约 6g/s 的大水流大动作快速注入，迅速激活前段高活性的酸质。" },
+                { name: "第二段 · 中心控速",     percentage: 0.3333, note: "放缓水流至大约 4g/s 紧贴粉饼中心绕小圈，有意延长接触时间逼出高浓甜感与醇厚Body。" },
+                { name: "第三段 · 大水冲刺收尾", percentage: 0.4667, note: "重新恢复 5g/s 大水流猛烈冲刺至总量，冲刷粉床，务必在 1 分 40秒内结束冲煮，极速切断。" },
+            ],
+        },
     };
 
-    function updateRecipeDetailsView() { 
-        const recipeKey = document.getElementById('recipe').value; 
-        const recipe = recipes[recipeKey]; 
-        
-        document.getElementById('viewTemp').innerText = recipe.temp; 
-        document.getElementById('viewGear').innerText = recipe.gear; 
-        document.getElementById('viewGrind').innerText = recipe.grind; 
-        document.getElementById('viewTime').innerText = recipe.time; 
-        document.getElementById('viewFlavor').innerText = recipe.flavor; 
-        
+    function updateRecipeDetailsView() {
+        const recipeKey = document.getElementById('recipe').value;
+        const recipe = recipes[recipeKey];
+
+        document.getElementById('viewTemp').innerText = recipe.temp;
+        document.getElementById('viewGear').innerText = recipe.gear;
+        document.getElementById('viewGrind').innerText = recipe.grind;
+        document.getElementById('viewTime').innerText = recipe.time;
+        document.getElementById('viewFlavor').innerText = recipe.flavor;
+
         const ratioWrapper = document.getElementById('ratioWrapper');
         if (recipe.hasDynamicRatio) {
             ratioSelect.disabled = false;
@@ -503,11 +593,11 @@
             ratioWrapper.classList.add('locked');
         }
     }
-    
+
     function onRatioChange() {
         renderDashboard();
     }
-    
+
     function applyRecipeKey(key, { writeHash = true, persist = true } = {}) {
         if (!recipes[key]) return false;
         const sel = document.getElementById('recipe');
@@ -534,7 +624,7 @@
             renderDashboard();
         }
     });
-    
+
     function renderDashboard() {
         const beans = parseFloat(inputEl.value || textEl.innerText);
         if (!beans || beans <= 0) return;
@@ -557,7 +647,7 @@
             cumulativeWater += stepWater;
             const stepDiv = document.createElement('div');
             stepDiv.className = 'step';
-            stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">注水至：<strong style="color:var(--primary-color); font-size:15px;">${cumulativeWater.toFixed(1)}g</strong> <span style="color:var(--text-muted); font-size:11px;">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
+            stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">注水至：<strong class="step-cumulative">${cumulativeWater.toFixed(1)}g</strong> <span class="step-delta">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
             stepsList.appendChild(stepDiv);
         });
     }
