@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coffee-assistant-v2.3'; // 升级缓存版本号
+const CACHE_NAME = 'coffee-assistant-v2.4'; // 升级缓存版本号
 // 需要拦截并缓存的文件列表
 const ASSETS = [
   './index.html',
