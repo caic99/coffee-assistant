@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.1</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v5.2</title>
     
-    <link rel="manifest" href="./manifest.json?v=5.1">
+    <link rel="manifest" href="./manifest.json?v=5.2">
     
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.1">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=5.1">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5.2">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=5.2">
 
     <style>
         :root {
@@ -177,20 +177,6 @@
             background-size: 10% 100%, 2% 55%;
             opacity: 0.9;
             pointer-events: none;
-        }
-
-        .grinder-slider-box::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 2px;
-            height: 16px;
-            background-color: var(--accent-color);
-            z-index: 1;
-            pointer-events: none;
-            border-radius: 1px;
         }
 
         input[type="range"] {
@@ -372,7 +358,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=5.1')
+            navigator.serviceWorker.register('./sw.js?v=5.2')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
