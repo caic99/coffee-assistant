@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v7.4</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v7.5</title>
 
-    <link rel="manifest" href="./manifest.json?v=7.4">
+    <link rel="manifest" href="./manifest.json?v=7.5">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=7.4">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=7.4">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=7.5">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=7.5">
 
     <style>
         :root {
@@ -299,7 +299,7 @@
         .result { margin-top: 16px; background-color: var(--highlight-bg); border-radius: 14px; border: 1px solid var(--border-color); overflow: hidden; }
         .result h3 { margin: 0; padding: 10px 14px; background: #f4ede4; color: var(--primary-color); font-weight: 700; font-size: 12px; }
         .result-body { padding: 14px 16px; background: #fff; }
-        .total-highlight { font-size: 12px; margin: 0 -12px 12px; background: #f4ede4; padding: 6px 10px; border-radius: 10px; color: var(--primary-color); }
+        .total-highlight { font-size: 12px; margin: 0 -12px 12px; background: #f4ede4; padding: 2px 10px; border-radius: 10px; color: var(--primary-color); }
         .dashboard-total { color: var(--accent-color); font-size: 16px; }
         .step { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
         .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -409,7 +409,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=7.4')
+            navigator.serviceWorker.register('./sw.js?v=7.5')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
