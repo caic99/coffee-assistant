@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.3</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.4</title>
 
-    <link rel="manifest" href="./manifest.json?v=6.3">
+    <link rel="manifest" href="./manifest.json?v=6.4">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.3">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=6.3">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.4">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=6.4">
 
     <style>
         :root {
@@ -407,7 +407,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=6.3')
+            navigator.serviceWorker.register('./sw.js?v=6.4')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -682,9 +682,9 @@
             time: "约 3'30\"",
             flavor: "James Hoffmann 2020 年发布的《Ultimate V60 Technique》——YouTube 单片播放量超 1000 万次的家庭手冲事实标准。两段大注水替代多次脉冲，用 swirl 替代搅拌（更均匀），用 Rao Spin 平整粉床（防穴道效应），高水温补偿 V60 散热。是西方家庭入门首选，平衡、清澈、突出豆本身风味。",
             steps: [
-                { name: "第一段 · 闷蒸 + swirl",        percentage: 0.12, note: "0:00 注入 60g 闷蒸水（粉重 ×2），立即逆时针 swirl 让粉床平整，等到 0:45。" },
+                { name: "第一段 · 闷蒸 + swirl",        percentage: 0.12, note: "0:00 注入 60g 闷蒸水（粉重 ×2），立即给 V60 一次逆时针 swirl —— 单手端起整个滤杯快速转一圈，靠水浆惯性把粉床晃平、让水均匀渗入每颗粉。等到 0:45。" },
                 { name: "第二段 · 主注 60%",            percentage: 0.48, note: "0:45 注水至 300g（60% 总水量），30 秒内完成。" },
-                { name: "第三段 · 主注剩余 + Rao spin", percentage: 0.40, note: "1:15 温柔注水至 500g（30 秒内）。1:45 用勺顺时针 + 逆时针各搅一次释放粘壁粉，再 Rao spin 平整粉床。3:30 完成。" },
+                { name: "第三段 · 主注剩余 + Rao spin", percentage: 0.40, note: "1:15 温柔注水至 500g（30 秒内）。1:45 用勺顺时针 + 逆时针各搅一次释放粘壁粉，再来一次 Rao spin —— 与开头的 swirl 同一手法、再次端杯旋转 —— 让粉床收尾时平整。3:30 完成。" },
             ],
         },
         rao: {
@@ -696,7 +696,7 @@
             time: "4'00\" - 4'30\"",
             flavor: "Scott Rao 与 Hario UK 合作的高萃取版 V60 配方。核心是“Rao Spin”——闷蒸后用力旋转，让粉床完全平整；后续两段也辅以轻微旋转。粉床中央用手指挖一个“鸟巢”（bird's nest）凹陷利于水均匀渗入；只用塑胶 V60（保温佳）。强调“均匀萃取”，目标 22%–24.5% 萃取率仍保持清澈。",
             steps: [
-                { name: "第一段 · 闷蒸 + Rao Spin", percentage: 0.182, note: "0:00 注入 60g 闷蒸水，立即用力旋转 V60（Rao Spin）平整粉床。" },
+                { name: "第一段 · 闷蒸 + Rao Spin", percentage: 0.182, note: "0:00 注入 60g 闷蒸水，立即做一次 Rao Spin —— 单手端起整个 V60 用力转一圈，靠水浆惯性把粉床整体晃平、并把粘壁的细粉冲回粉层。这是 Scott Rao 推广的标志手法，用旋转的整体扰动替代勺子搅拌。" },
                 { name: "第二段 · 第二注",         percentage: 0.424, note: "0:40 注水至 200g，做一次极轻微旋转（约 1 秒，仅为填平凹槽）。等浆液下沉至 70%。" },
                 { name: "第三段 · 收尾注",         percentage: 0.394, note: "再注水至 330g，再一次轻微旋转。总时长 4:00–4:30。" },
             ],
