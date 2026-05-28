@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v7.9</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v8.0</title>
 
-    <link rel="manifest" href="./manifest.json?v=7.9">
+    <link rel="manifest" href="./manifest.json?v=8.0">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=7.9">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=7.9">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.0">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=8.0">
 
     <style>
         :root {
@@ -397,7 +397,7 @@
         <h3>冲煮看板</h3>
         <div class="result-body">
             <div class="total-highlight">
-                目标总水：<strong id="totalWater" class="dashboard-total"></strong> g
+                目标注水：<strong id="totalWater" class="dashboard-total"></strong> g
                 | 粉水比：<strong><span id="currentRatio"></span></strong>
                 | 咖啡粉重量：<strong id="currentBeans"></strong> g
             </div>
@@ -409,7 +409,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=7.9')
+            navigator.serviceWorker.register('./sw.js?v=8.0')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
