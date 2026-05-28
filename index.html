@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.4</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.5</title>
 
-    <link rel="manifest" href="./manifest.json?v=6.4">
+    <link rel="manifest" href="./manifest.json?v=6.5">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.4">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=6.4">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.5">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=6.5">
 
     <style>
         :root {
@@ -56,7 +56,7 @@
         .bg-abstract-top { position: absolute; top: -30px; right: -40px; width: 140px; height: 140px; opacity: 0.08; z-index: -1; pointer-events: none; }
         .bg-abstract-bottom { position: absolute; bottom: -50px; left: -40px; width: 160px; height: 160px; opacity: 0.05; z-index: -1; pointer-events: none; }
 
-        .brand-header { text-align: left; margin-bottom: 16px; }
+        .brand-header { text-align: left; margin-bottom: 16px; padding-left: 16px; }
         .brand-header .en-title { font-size: 11px; font-weight: 700; color: var(--accent-color); text-transform: uppercase; margin-bottom: 2px; }
         .brand-header .zh-title { font-size: 20px; font-weight: 800; color: var(--primary-color); }
 
@@ -407,7 +407,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=6.4')
+            navigator.serviceWorker.register('./sw.js?v=6.5')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
