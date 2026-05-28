@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Brewing Assistant · 咖啡冲煮助手 v8.2</title>
 
-    <link rel="manifest" href="./manifest.json?v=8.4">
+    <link rel="manifest" href="./manifest.json?v=8.5">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.4">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=8.4">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.5">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=8.5">
 
     <style>
         :root {
@@ -53,7 +53,7 @@
             z-index: 1;
         }
 
-        .bg-abstract-top { position: absolute; top: -30px; right: -40px; width: 140px; height: 140px; opacity: 0.08; z-index: -1; pointer-events: none; }
+        .bg-abstract-top { position: absolute; top: -20px; right: 30px; width: 220px; height: 220px; opacity: 0.08; z-index: -1; pointer-events: none; }
         .bg-abstract-bottom { position: absolute; bottom: -50px; left: -40px; width: 160px; height: 160px; opacity: 0.05; z-index: -1; pointer-events: none; }
 
         .brand-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 14px; }
@@ -317,7 +317,7 @@
 <body>
 
 <div class="container">
-    <svg class="bg-abstract-top" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round"><path d="M10 20 L90 20 L50 85 Z" /><line x1="25" y1="44" x2="75" y2="44" stroke-dasharray="2 3" /><circle cx="50" cy="20" r="18" fill="none" stroke-width="1" /><path d="M40 10 C45 20 50 20 60 30" stroke-width="1.5" /></svg>
+    <svg class="bg-abstract-top" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round"><path d="M10 20 L90 20 L50 85 Z" /><line x1="25" y1="44" x2="75" y2="44" stroke-dasharray="2 3" /><ellipse cx="50" cy="20" rx="20" ry="12" fill="none" stroke-width="1" transform="rotate(45 50 20)" /><path d="M40 10 C45 20 50 20 60 30" stroke-width="1.5" /></svg>
     <svg class="bg-abstract-bottom" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.2"><path d="M10 90 C10 40, 50 30, 60 30" stroke-width="2" /><path d="M60 30 C75 30, 90 10, 85 5" stroke-width="1.5" stroke-linecap="round" /><circle cx="10" cy="90" r="30" stroke-dasharray="4 4" /></svg>
 
     <div class="brand-header">
@@ -420,7 +420,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.4')
+            navigator.serviceWorker.register('./sw.js?v=8.5')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
