@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.5</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.6</title>
 
-    <link rel="manifest" href="./manifest.json?v=6.5">
+    <link rel="manifest" href="./manifest.json?v=6.6">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.5">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=6.5">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.6">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=6.6">
 
     <style>
         :root {
@@ -293,6 +293,7 @@
         .info-item.full-width { grid-column: span 2; border-top: 1px dashed #f0eae1; padding-top: 8px; }
         .info-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
         .info-value { color: var(--text-main); font-weight: 600; font-size: 13px; line-height: 1.4; }
+        .info-item.full-width .info-value { font-weight: 400; line-height: 1.55; }
 
         .result { margin-top: 16px; background-color: var(--highlight-bg); border-radius: 14px; border: 1px solid var(--border-color); overflow: hidden; }
         .result h3 { margin: 0; padding: 10px 14px; background: #f4ede4; color: var(--primary-color); font-weight: 700; font-size: 12px; }
@@ -407,7 +408,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=6.5')
+            navigator.serviceWorker.register('./sw.js?v=6.6')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
