@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.1</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v6.2</title>
 
-    <link rel="manifest" href="./manifest.json?v=6.1">
+    <link rel="manifest" href="./manifest.json?v=6.2">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.1">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=6.1">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=6.2">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=6.2">
 
     <style>
         :root {
@@ -345,10 +345,19 @@
             <div class="select-wrapper" id="recipeWrapper">
                 <select id="recipe" onchange="onRecipeChange()">
                     <option value="classic" selected>经典三段式</option>
-                    <option value="four_six">粕谷哲 四六冲煮法</option>
                     <option value="one_pour">极致一刀流</option>
-                    <option value="carlos">Carlos 五段精准法</option>
-                    <option value="du">杜嘉宁 高温快冲法</option>
+                    <option value="perger">Matt Perger 教学版 (2012)</option>
+                    <option value="four_six">粕谷哲 四六冲煮法 (2016)</option>
+                    <option value="fukahori">Emi Fukahori 三温度浸泡 (2018)</option>
+                    <option value="du">杜嘉宁 高温快冲法 (2019)</option>
+                    <option value="winton">Matt Winton 五段无搅 (2021)</option>
+                    <option value="hsu">Sherry Hsu 双温度 (2022)</option>
+                    <option value="carlos">Carlos Medina 五段精准法 (2023)</option>
+                    <option value="wolfl">Martin Wölfl Orea V4 快冲 (2024)</option>
+                    <option value="peng">George Peng SOLO 双温度 (2025)</option>
+                    <option value="hoffmann">James Hoffmann Ultimate V60</option>
+                    <option value="rao">Scott Rao 高萃取版</option>
+                    <option value="x_method">彭近洋 无差别冲煮法</option>
                 </select>
             </div>
         </div>
@@ -359,7 +368,13 @@
                 <select id="ratio" onchange="onRatioChange()">
                     <option value="15">1 : 15</option>
                     <option value="16">1 : 16</option>
-                    <option value="16.1" style="display:none;">1 : 16.1</option>
+                    <option value="13"    style="display:none;">1 : 13</option>
+                    <option value="14"    style="display:none;">1 : 14</option>
+                    <option value="14.3"  style="display:none;">1 : 14.3</option>
+                    <option value="15.9"  style="display:none;">1 : 15.9</option>
+                    <option value="16.1"  style="display:none;">1 : 16.1</option>
+                    <option value="16.5"  style="display:none;">1 : 16.5</option>
+                    <option value="16.67" style="display:none;">1 : 16.67</option>
                 </select>
             </div>
         </div>
@@ -392,7 +407,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=6.1')
+            navigator.serviceWorker.register('./sw.js?v=6.2')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -568,6 +583,136 @@
                 { name: "第一段 · 快冲闷蒸",     percentage: 0.20,   note: "约 6g/s 的大水流大动作快速注入，迅速激活前段高活性的酸质。" },
                 { name: "第二段 · 中心控速",     percentage: 0.3333, note: "放缓水流至大约 4g/s 紧贴粉饼中心绕小圈，有意延长接触时间逼出高浓甜感与醇厚Body。" },
                 { name: "第三段 · 大水冲刺收尾", percentage: 0.4667, note: "重新恢复 5g/s 大水流猛烈冲刺至总量，冲刷粉床，务必在 1 分 40秒内结束冲煮，极速切断。" },
+            ],
+        },
+        perger: {
+            hasDynamicRatio: false,
+            fixedRatio: 16.67,
+            temp: "94℃ 接近沸腾",
+            gear: "Hario V60-01 单人份",
+            grind: "细研磨，EK43 筛除 250μm 以下细粉",
+            time: "约 2'20\"",
+            flavor: "Matt Perger 2012 维也纳 WBrC 冠军同款思路（St. Ali 教学版）。核心理念是 EK43 + 筛分细粉 + 强搅拌闷蒸，让极细极均匀的颗粒在 2 分钟内冲出 23%+ 萃取率。属典型“高萃取低浓度”流派——明亮、清澈、酸质突出、带甜感。是手冲技术史上首次把颗粒分布理论搬上世界赛舞台的方案。",
+            steps: [
+                { name: "第一段 · 强搅闷蒸", percentage: 0.25, note: "0:00 注入 50g 闷蒸水，立即用勺像匪徒一样剧烈搅拌（stir like a bandit）。" },
+                { name: "第二段 · 螺旋注水", percentage: 0.25, note: "0:30 注入 50g，由中心向外螺旋（南半球逆时针、北半球顺时针）。" },
+                { name: "第三段 · 螺旋收尾", percentage: 0.50, note: "1:00 注入 100g，同样螺旋方式。目标总时长 2:20。" },
+            ],
+        },
+        fukahori: {
+            hasDynamicRatio: false,
+            fixedRatio: 13,
+            temp: "三段：80℃ / 95℃ / 80℃",
+            gear: "GINA（带阀门的浸泡-滴滤切换式滤杯）",
+            grind: "中粗研磨",
+            time: "约 2'55\"",
+            flavor: "Emi Fukahori 2018 贝洛奥里藏特 WBrC 首位女性冠军方案。用 GINA 这种带阀门的浸泡-滴滤混合滤杯演绎“温度阶梯”哲学：低温首段提取花果香、高温中段打开层次、再回低温收尾保汁水感。同一杯随杯温下降，从柠檬酸 → 酒石酸 → 苹果酸递变。是关于“杯温即风味”的教科书式案例，咖啡用低咖啡因变种 Daterra Laurina。",
+            steps: [
+                { name: "第一段 · 80℃ 闷蒸浸泡", percentage: 0.227, note: "0:00 阀门关闭，80℃ 水注入 50g，完全浸泡 45 秒，温和提取甜感与果香。" },
+                { name: "第二段 · 95℃ 浸泡打开", percentage: 0.455, note: "0:45 阀门仍关闭，95℃ 注入 100g，浸泡约 1 分钟让咖啡“开”。" },
+                { name: "第三段 · 80℃ 浸泡收尾", percentage: 0.318, note: "1:45 阀门仍关闭，80℃ 注入 70g，目的是补汁水感。2:30 打开阀门让水滴尽，约 2:55 完成。" },
+            ],
+        },
+        winton: {
+            hasDynamicRatio: false,
+            fixedRatio: 15,
+            temp: "93℃，注水过程冷却至约 88℃",
+            gear: "金属 Hario V60",
+            grind: "粗研磨，Kinu M47 第 3.6 格",
+            time: "约 2'40\"",
+            flavor: "Matt Winton 2021 米兰 WBrC 冠军方案。革命性的“五段不搅拌”——完全不用勺子搅，单靠水柱本身的湍流就让粉床均匀浸润。每段间隔由“上一段水位见底”决定（约每 30 秒），把节奏交给重力。咖啡是 Eugenioides + Catucai 混豆，首位用混豆夺冠。Winton 名言：“温柔的水流没用，必须用更硬的注水。”",
+            steps: [
+                { name: "第一段 · 无搅闷蒸", percentage: 0.1667, note: "0:00 注入 50g 闷蒸水，35 秒——完全不搅拌、不摇晃，靠水流自身湍流润粉。" },
+                { name: "第二段 · 第二注",   percentage: 0.2333, note: "0:35 注入 70g，继续不搅。" },
+                { name: "第三段 · 第三注",   percentage: 0.20,   note: "约 1:05 等粉床见底立即注入 60g。" },
+                { name: "第四段 · 第四注",   percentage: 0.20,   note: "约 1:35 同样在粉床见底时注入 60g。" },
+                { name: "第五段 · 第五注",   percentage: 0.20,   note: "约 2:05 最后 60g，总时长 2:40。" },
+            ],
+        },
+        hsu: {
+            hasDynamicRatio: false,
+            fixedRatio: 14.3,
+            temp: "首注 70℃，后三注 95℃",
+            gear: "Orea V3 黑色 + Kalita 185 波浪滤纸（混搭流速调节）",
+            grind: "800–1000 μm 之间",
+            time: "2'30\" - 3'00\"",
+            flavor: "许世元 Sherry Hsu 2022 墨尔本 WBrC 首位台湾女性冠军。咖啡是哥伦比亚 Finca Mikava CoE 史上最高分（92.71）的厌氧日晒瑰夏，Orea V3 锥形里塞 Kalita 185 波浪滤纸做流速 hack。最具开创性的是“冷水首注”——70℃ 闷蒸保留花果香的挥发性芳香，后三段切到 95℃ 拉出 body。开启了 2022 后的“双温度”时代。",
+            steps: [
+                { name: "第一段 · 70℃ 冷闷蒸",     percentage: 0.25, note: "0:00 用 70℃ 水绕圈注入 50g，闷蒸 30 秒。低温保留花果芳香。" },
+                { name: "第二段 · 95℃ 绕圈",       percentage: 0.25, note: "0:30 切到 95℃ 高温水，由内向外绕圈注入 50g。" },
+                { name: "第三段 · 95℃ 中心",       percentage: 0.25, note: "1:00 95℃ 中心点注 50g，主体萃取开始。" },
+                { name: "第四段 · 95℃ 中心收尾",   percentage: 0.25, note: "1:30 同样中心点注 50g。2:30–3:00 完成滴流。" },
+            ],
+        },
+        wolfl: {
+            hasDynamicRatio: false,
+            fixedRatio: 15.9,
+            temp: "93℃ 恒温",
+            gear: "Orea V4 NARROW + FAST 底 + Sibarist FAST FLAT 滤纸",
+            grind: "Mazzer ZM 现磨，目标 490 μm",
+            time: "约 2'20\" - 2'25\"",
+            flavor: "Martin Wölfl 2024 芝加哥 WBrC 冠军——首位现场磨豆（Mazzer ZM 上台）、首位以 Orea V4 + Sibarist FAST 这套“无旁通快滤”硬件夺冠。咖啡是 Lost Origin 加工的 Finca Maya 厌氧瑰夏，配 Apax 定制水。注水节奏接近 Kasuya 4:6 但更快，总时长压到 2:25 内，是 2022 后“快冲流”的代表。",
+            steps: [
+                { name: "第一段 · 闷蒸",     percentage: 0.222, note: "0:00 注入 60g 闷蒸水，约 30 秒。" },
+                { name: "第二段 · 第二注",   percentage: 0.222, note: "0:30 注水至 120g（约 0:40 完成）。" },
+                { name: "第三段 · 第三注",   percentage: 0.185, note: "1:10–1:20 注水至 170g。" },
+                { name: "第四段 · 收尾注",   percentage: 0.371, note: "1:30–2:00 注水至 270g。总时长 2:20–2:25。" },
+            ],
+        },
+        peng: {
+            hasDynamicRatio: false,
+            fixedRatio: 14,
+            temp: "前 120g 96℃，后 90g 80℃",
+            gear: "SOLO + 无旁通 HIFLUX 插件 + Sibarist FAST + Melodrip",
+            grind: "FM Grinder 11 格（约 800 μm）",
+            time: "约 1'45\"",
+            flavor: "彭锦阳 George Peng 2025 雅加达 WBrC 冠军——首位用 SOLO + 无旁通硬件套装夺冠，把 Sherry Hsu 开创的“双温度”流推到了极致。咖啡是 Mount Totumas $3,422/kg 拍卖批次的瑰夏，预混了三种烘焙曲线（5g × 3 = 15g）层叠花、果、body。主题“温度作为感官工具”——从烘豆、冲煮到出杯温度都被精算。",
+            steps: [
+                { name: "第一段 · 96℃ 闷蒸",         percentage: 0.143, note: "0:00 在已用 96℃ 80g 预热并倒掉的滤杯里注入 30g @ 96℃，逆时针绕圈三圈，6 秒完成。" },
+                { name: "第二段 · 96℃ 主注",         percentage: 0.429, note: "0:30 注入 90g @ 96℃，约 10 秒完成。" },
+                { name: "第三段 · 80℃ Melodrip 收尾", percentage: 0.429, note: "1:10 切到 80℃ 水，通过 Melodrip 注入 90g。1:45 滴流结束。" },
+            ],
+        },
+        hoffmann: {
+            hasDynamicRatio: false,
+            fixedRatio: 16.67,
+            temp: "接近沸腾（95℃+，浅烘可至 100℃）",
+            gear: "Hario V60-02 塑胶款（保温优于陶瓷）",
+            grind: "中细研磨，Comandante C40 约 18–20 格",
+            time: "约 3'30\"",
+            flavor: "James Hoffmann 2020 年发布的《Ultimate V60 Technique》——YouTube 单片播放量超 1000 万次的家庭手冲事实标准。两段大注水替代多次脉冲，用 swirl 替代搅拌（更均匀），用 Rao Spin 平整粉床（防穴道效应），高水温补偿 V60 散热。是西方家庭入门首选，平衡、清澈、突出豆本身风味。",
+            steps: [
+                { name: "第一段 · 闷蒸 + swirl",        percentage: 0.12, note: "0:00 注入 60g 闷蒸水（粉重 ×2），立即逆时针 swirl 让粉床平整，等到 0:45。" },
+                { name: "第二段 · 主注 60%",            percentage: 0.48, note: "0:45 注水至 300g（60% 总水量），30 秒内完成。" },
+                { name: "第三段 · 主注剩余 + Rao spin", percentage: 0.40, note: "1:15 温柔注水至 500g（30 秒内）。1:45 用勺顺时针 + 逆时针各搅一次释放粘壁粉，再 Rao spin 平整粉床。3:30 完成。" },
+            ],
+        },
+        rao: {
+            hasDynamicRatio: false,
+            fixedRatio: 16.5,
+            temp: "97℃",
+            gear: "Hario V60-02 塑胶款",
+            grind: "中细研磨，目标萃取率 22%–24.5%",
+            time: "4'00\" - 4'30\"",
+            flavor: "Scott Rao 与 Hario UK 合作的高萃取版 V60 配方。核心是“Rao Spin”——闷蒸后用力旋转，让粉床完全平整；后续两段也辅以轻微旋转。粉床中央用手指挖一个“鸟巢”（bird's nest）凹陷利于水均匀渗入；只用塑胶 V60（保温佳）。强调“均匀萃取”，目标 22%–24.5% 萃取率仍保持清澈。",
+            steps: [
+                { name: "第一段 · 闷蒸 + Rao Spin", percentage: 0.182, note: "0:00 注入 60g 闷蒸水，立即用力旋转 V60（Rao Spin）平整粉床。" },
+                { name: "第二段 · 第二注",         percentage: 0.424, note: "0:40 注水至 200g，做一次极轻微旋转（约 1 秒，仅为填平凹槽）。等浆液下沉至 70%。" },
+                { name: "第三段 · 收尾注",         percentage: 0.394, note: "再注水至 330g，再一次轻微旋转。总时长 4:00–4:30。" },
+            ],
+        },
+        x_method: {
+            hasDynamicRatio: false,
+            fixedRatio: 13,
+            temp: "92–93℃，配合极浅烘",
+            gear: "Timemore × 彭近洋联名定制平底滤杯",
+            grind: "Comandante C40 第 28 格（粗研磨）",
+            time: "约 1'30\" - 2'00\"",
+            flavor: "彭近洋 George Peng 2022 中国 WBrC 冠军方案，命名“无差别冲煮 / X Method”。同一份比例（1 : 2.5 : 5.5 : X，X 通常 4–6）应对任意豆，把变量减到最少；通过极粗研磨 + 严格比例制控制萃取率而非时间。首段即兼作闷蒸，中心粗流连续注水。是他 2025 WBrC 夺冠之前的早期代表作，强调“一套参数走天下”。",
+            steps: [
+                { name: "第一段 · 兼闷蒸首注", percentage: 0.192, note: "0:00 中心粗流注入 37.5g（粉量 ×2.5）。不做独立闷蒸。" },
+                { name: "第二段 · 中段",       percentage: 0.423, note: "0:30 注入 82.5g。" },
+                { name: "第三段 · 收尾",       percentage: 0.385, note: "1:00 注入 75g。总时长 1:30–2:00。" },
             ],
         },
     };
