@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v7.7</title>
+    <title>Coffee Brewing Assistant · 咖啡冲煮助手 v7.8</title>
 
-    <link rel="manifest" href="./manifest.json?v=7.7">
+    <link rel="manifest" href="./manifest.json?v=7.8">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=7.7">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=7.7">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=7.8">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=7.8">
 
     <style>
         :root {
@@ -301,7 +301,7 @@
         .result-body { padding: 10px 16px 14px; background: #fff; }
         .total-highlight { font-size: 12px; margin: 0 -8px 10px; background: #f4ede4; padding: 6px; border-radius: 6px; color: var(--primary-color); }
         .dashboard-total { color: var(--accent-color); font-size: 16px; }
-        .step { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
+        .step { margin: 0 0 20px; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
         .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .step-title { font-weight: 700; color: var(--primary-color); margin-bottom: 2px; display: flex; justify-content: space-between; font-size: 13px; }
         .step-details { font-size: 14px; color: #000; margin-bottom: 2px; }
@@ -409,7 +409,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=7.7')
+            navigator.serviceWorker.register('./sw.js?v=7.8')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
