@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Brewing Assistant · 咖啡冲煮助手 v8.2</title>
 
-    <link rel="manifest" href="./manifest.json?v=8.2">
+    <link rel="manifest" href="./manifest.json?v=8.3">
 
     <meta name="theme-color" content="#3d2b1f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.2">
-    <link rel="apple-touch-icon" href="./favicon.svg?v=8.2">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.3">
+    <link rel="apple-touch-icon" href="./favicon.svg?v=8.3">
 
     <style>
         :root {
@@ -300,15 +300,16 @@
         .result h3 { margin: 0; padding: 10px 14px; background: #f4ede4; color: var(--primary-color); font-weight: 700; font-size: 12px; }
         .result-body { padding: 10px 16px 14px; background: #fff; }
         .total-highlight { font-size: 12px; margin: 0 -8px 10px; background: #f4ede4; padding: 6px; border-radius: 6px; color: var(--primary-color); }
-        .total-highlight .sep { color: var(--text-muted); opacity: 0.5; margin: 0 2px; }
+        .total-highlight .sep { color: var(--text-muted); margin: 0 2px; }
         .dashboard-total { color: var(--accent-color); }
-        .step { margin: 0 0 20px; padding-bottom: 20px; border-bottom: 1px dashed #e6dfd8; }
+        .step { margin: 0 0 10px; padding-bottom: 10px; border-bottom: 1px dashed #e6dfd8; }
         .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .step-title { font-weight: 700; color: var(--primary-color); margin-bottom: 2px; display: flex; justify-content: space-between; font-size: 13px; }
-        .step-details { font-size: 14px; color: #000; margin-bottom: 2px; }
+        .step-details { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
         .step-cumulative { color: var(--primary-color); font-size: 15px; }
         .step-delta { color: var(--text-muted); font-size: 11px; }
-        .step-note { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; }
+        .step-time { color: var(--accent-color); font-weight: 600; font-size: 14px; font-variant-numeric: tabular-nums oldstyle-nums; }
+        .step-note { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -410,7 +411,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.2')
+            navigator.serviceWorker.register('./sw.js?v=8.3')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -524,9 +525,9 @@
             time: "2'15\" - 2'45\"",
             flavor: "最普及的经典日常风味校准模型。通过均匀拆分三段水量平衡整体的酸、甜与浓度，不挑咖啡豆的烘焙度与产区，极高容错率。如果在面对一支新拿到的豆子不知道如何下手时，推荐先用此方案测试豆子的基本风味轮廓。",
             steps: [
-                { name: "第一段 · 闷蒸",     percentage: 0.20, note: "充分打湿粉床，闷蒸 30 秒以均匀释放二氧化碳气体。" },
-                { name: "第二段 · 核心萃取", percentage: 0.40, note: "由内向外稳定绕圈，稳定均匀水流，全力逼出中段高甜感。" },
-                { name: "第三段 · 尾段稀释", percentage: 0.40, note: "转为平稳的中心温柔注水，避免过度扰动引起尾段杂质与苦涩。" },
+                { name: "第一段 · 闷蒸",     time: "0:00", percentage: 0.20, note: "充分打湿粉床，闷蒸 30 秒以均匀释放二氧化碳气体。" },
+                { name: "第二段 · 核心萃取", time: "0:45", percentage: 0.40, note: "由内向外稳定绕圈，稳定均匀水流，全力逼出中段高甜感。" },
+                { name: "第三段 · 尾段稀释", time: "1:30", percentage: 0.40, note: "转为平稳的中心温柔注水，避免过度扰动引起尾段杂质与苦涩。" },
             ],
         },
         four_six: {
@@ -538,11 +539,11 @@
             time: "3'15\" - 3'30\"",
             flavor: "粕谷哲世界冠军成名作。将总注水量解构为 4:6 两阶段。前 40% 的前两注用于决定酸甜平衡，第一注少则偏甜；后 60% 的三注用于控制最终浓度。因为采用了极粗的研磨度，所以强烈建议针对咖啡豆的不同烘焙度实施严格的降温策略，例如深烘低至 83℃以保障甜感且完全避开焦苦。",
             steps: [
-                { name: "第一段 · 决定酸度", percentage: 0.20, note: "0:00 快速注入。粗研磨下释放轻快、明亮的酸质活力。" },
-                { name: "第二段 · 决定甜度", percentage: 0.20, note: "0:45 注入。若追求更高的高厚甜感，此段水量可适当增加。" },
-                { name: "第三段 · 提升浓度", percentage: 0.20, note: "1:25 注入。后三段每次注水前，务必等待滤杯内的咖啡液完全流干、粉床露出后再行注入下一段。" },
-                { name: "第四段 · 控制流速", percentage: 0.20, note: "2:05 注入。保持断水节奏，精准稳定重力水流。" },
-                { name: "第五段 · 最后收尾", percentage: 0.20, note: "2:35 灌入最后1/5水量，随后静置，等待最后滴滤滤干完成。" },
+                { name: "第一段 · 决定酸度", time: "0:00", percentage: 0.20, note: "快速注入。粗研磨下释放轻快、明亮的酸质活力。" },
+                { name: "第二段 · 决定甜度", time: "0:45", percentage: 0.20, note: "若追求更高的高厚甜感，此段水量可适当增加。" },
+                { name: "第三段 · 提升浓度", time: "1:25", percentage: 0.20, note: "后三段每次注水前，务必等待滤杯内的咖啡液完全流干、粉床露出后再行注入下一段。" },
+                { name: "第四段 · 控制流速", time: "2:05", percentage: 0.20, note: "保持断水节奏，精准稳定重力水流。" },
+                { name: "第五段 · 最后收尾", time: "2:35", percentage: 0.20, note: "灌入最后1/5水量，随后静置，等待最后滴滤滤干完成。" },
             ],
         },
         one_pour: {
@@ -554,8 +555,8 @@
             time: "1'50\" - 2'10\"",
             flavor: "极致的一刀流法则。核心逻辑是利用粉床自身的持水容积与滤纸阻力一次成型。冲煮中途没有任何由于多次断水、水位起伏带来的非必要物理扰动和杂质下沉。极易冲出极其干净、轻盈、通透如清茶般的柔和果酸质感，适合高品质高海拔的浅烘单品豆款。",
             steps: [
-                { name: "第一段 · 充分闷蒸", percentage: 0.20, note: "注入少量热水充分浸润每一个粉末微粒，闷蒸 30 秒彻底排气。" },
-                { name: "第二段 · 一注拉满", percentage: 0.80, note: "中心温柔连续注水，由内向外缓慢打圈，中途绝不停顿，一口气拉高水位至总克重，随后彻底放手静置等它流尽。" },
+                { name: "第一段 · 充分闷蒸", time: "0:00", percentage: 0.20, note: "注入少量热水充分浸润每一个粉末微粒，闷蒸 30 秒彻底排气。" },
+                { name: "第二段 · 一注拉满", time: "0:30", percentage: 0.80, note: "中心温柔连续注水，由内向外缓慢打圈，中途绝不停顿，一口气拉高水位至总克重，随后彻底放手静置等它流尽。" },
             ],
         },
         carlos: {
@@ -567,11 +568,11 @@
             time: "2'30\"，每段严格隔 30 秒",
             flavor: "Carlos Medina世界赛场物理哲学。通过平底滤杯天然的垂直平铺结构，配合极其严格的“高频低量”五段均分推进，追求绝对纯粹的“物理萃取均匀度”。几乎杜绝了锥形滤杯中心粉层过厚、侧壁逃逸的通病。冲煮出的风味轮廓极其清晰、稳定，呈现出高级、典雅且极其高雅的干净甜感。",
             steps: [
-                { name: "第一段 · 0:00 闷蒸",   percentage: 0.20, note: "精准绕圈注入，打湿每一颗粉末，建立均匀粉床。" },
-                { name: "第二段 · 0:30 注水",   percentage: 0.20, note: "严格保持固定的注水高度和画圈半径，轻柔向前推进。" },
-                { name: "第三段 · 1:00 注水",   percentage: 0.20, note: "水流控制力度需极致平稳，有意减少物理扰动对底部的冲击。" },
-                { name: "第四段 · 1:30 注水",   percentage: 0.20, note: "细水流稳定精准注入，维持均衡的水层高度。" },
-                { name: "第五段 · 2:00 精准收尾", percentage: 0.20, note: "最后一段注入完毕，洗下多余侧壁碎屑，静置等待完全流干。" },
+                { name: "第一段 · 闷蒸",     time: "0:00", percentage: 0.20, note: "精准绕圈注入，打湿每一颗粉末，建立均匀粉床。" },
+                { name: "第二段 · 注水",     time: "0:30", percentage: 0.20, note: "严格保持固定的注水高度和画圈半径，轻柔向前推进。" },
+                { name: "第三段 · 注水",     time: "1:00", percentage: 0.20, note: "水流控制力度需极致平稳，有意减少物理扰动对底部的冲击。" },
+                { name: "第四段 · 注水",     time: "1:30", percentage: 0.20, note: "细水流稳定精准注入，维持均衡的水层高度。" },
+                { name: "第五段 · 精准收尾", time: "2:00", percentage: 0.20, note: "最后一段注入完毕，洗下多余侧壁碎屑，静置等待完全流干。" },
             ],
         },
         du: {
@@ -583,9 +584,9 @@
             time: "1'40\" 快打战",
             flavor: "杜嘉宁高温快冲极速流。反常规地使用“极细研磨+极端高温+超级高流速”的大水流快速推进。核心精髓是用高水温与细研磨在极短时间内榨出最前段的高挥发性花香与水果酸质，在后段苦涩杂质还没来得及析出前，1 分 40 秒内强行结束冲煮。能够冲出爆发力惊人的花果香气与扎实的醇厚度。",
             steps: [
-                { name: "第一段 · 快冲闷蒸",     percentage: 0.20,   note: "约 6g/s 的大水流大动作快速注入，迅速激活前段高活性的酸质。" },
-                { name: "第二段 · 中心控速",     percentage: 0.3333, note: "放缓水流至大约 4g/s 紧贴粉饼中心绕小圈，有意延长接触时间逼出高浓甜感与醇厚Body。" },
-                { name: "第三段 · 大水冲刺收尾", percentage: 0.4667, note: "重新恢复 5g/s 大水流猛烈冲刺至总量，冲刷粉床，务必在 1 分 40秒内结束冲煮，极速切断。" },
+                { name: "第一段 · 快冲闷蒸",     time: "0:00", percentage: 0.20,   note: "约 6g/s 的大水流大动作快速注入，迅速激活前段高活性的酸质。" },
+                { name: "第二段 · 中心控速",     time: "0:25", percentage: 0.3333, note: "放缓水流至大约 4g/s 紧贴粉饼中心绕小圈，有意延长接触时间逼出高浓甜感与醇厚Body。" },
+                { name: "第三段 · 大水冲刺收尾", time: "0:55", percentage: 0.4667, note: "重新恢复 5g/s 大水流猛烈冲刺至总量，冲刷粉床，务必在 1 分 40秒内结束冲煮，极速切断。" },
             ],
         },
         perger: {
@@ -597,9 +598,9 @@
             time: "约 2'20\"",
             flavor: "Matt Perger 2012 维也纳 WBrC 冠军同款思路（St. Ali 教学版）。核心理念是 EK43 + 筛分细粉 + 强搅拌闷蒸，让极细极均匀的颗粒在 2 分钟内冲出 23%+ 萃取率。属典型“高萃取低浓度”流派——明亮、清澈、酸质突出、带甜感。是手冲技术史上首次把颗粒分布理论搬上世界赛舞台的方案。",
             steps: [
-                { name: "第一段 · 强搅闷蒸", percentage: 0.25, note: "0:00 注入 50g 闷蒸水，立即用勺像匪徒一样剧烈搅拌（stir like a bandit）。" },
-                { name: "第二段 · 螺旋注水", percentage: 0.25, note: "0:30 注入 50g，由中心向外螺旋（南半球逆时针、北半球顺时针）。" },
-                { name: "第三段 · 螺旋收尾", percentage: 0.50, note: "1:00 注入 100g，同样螺旋方式。目标总时长 2:20。" },
+                { name: "第一段 · 强搅闷蒸", time: "0:00", percentage: 0.25, note: "注入闷蒸水，立即用勺像匪徒一样剧烈搅拌（stir like a bandit）。" },
+                { name: "第二段 · 螺旋注水", time: "0:30", percentage: 0.25, note: "由中心向外螺旋（南半球逆时针、北半球顺时针）。" },
+                { name: "第三段 · 螺旋收尾", time: "1:00", percentage: 0.50, note: "同样螺旋方式。目标总时长 2:20。" },
             ],
         },
         fukahori: {
@@ -611,9 +612,9 @@
             time: "约 2'55\"",
             flavor: "Emi Fukahori 2018 贝洛奥里藏特 WBrC 首位女性冠军方案。用 GINA 这种带阀门的浸泡-滴滤混合滤杯演绎“温度阶梯”哲学：低温首段提取花果香、高温中段打开层次、再回低温收尾保汁水感。同一杯随杯温下降，从柠檬酸 → 酒石酸 → 苹果酸递变。是关于“杯温即风味”的教科书式案例，咖啡用低咖啡因变种 Daterra Laurina。",
             steps: [
-                { name: "第一段 · 80℃ 闷蒸浸泡", percentage: 0.227, note: "0:00 阀门关闭，80℃ 水注入 50g，完全浸泡 45 秒，温和提取甜感与果香。" },
-                { name: "第二段 · 95℃ 浸泡打开", percentage: 0.455, note: "0:45 阀门仍关闭，95℃ 注入 100g，浸泡约 1 分钟让咖啡“开”。" },
-                { name: "第三段 · 80℃ 浸泡收尾", percentage: 0.318, note: "1:45 阀门仍关闭，80℃ 注入 70g，目的是补汁水感。2:30 打开阀门让水滴尽，约 2:55 完成。" },
+                { name: "第一段 · 80℃ 闷蒸浸泡", time: "0:00", percentage: 0.227, note: "阀门关闭，80℃ 水注入，完全浸泡 45 秒，温和提取甜感与果香。" },
+                { name: "第二段 · 95℃ 浸泡打开", time: "0:45", percentage: 0.455, note: "阀门仍关闭，95℃ 注入，浸泡约 1 分钟让咖啡“开”。" },
+                { name: "第三段 · 80℃ 浸泡收尾", time: "1:45", percentage: 0.318, note: "阀门仍关闭，80℃ 注入，目的是补汁水感。2:30 打开阀门让水滴尽，约 2:55 完成。" },
             ],
         },
         winton: {
@@ -625,11 +626,11 @@
             time: "约 2'40\"",
             flavor: "Matt Winton 2021 米兰 WBrC 冠军方案。革命性的“五段不搅拌”——完全不用勺子搅，单靠水柱本身的湍流就让粉床均匀浸润。每段间隔由“上一段水位见底”决定（约每 30 秒），把节奏交给重力。咖啡是 Eugenioides + Catucai 混豆，首位用混豆夺冠。Winton 名言：“温柔的水流没用，必须用更硬的注水。”",
             steps: [
-                { name: "第一段 · 无搅闷蒸", percentage: 0.1667, note: "0:00 注入 50g 闷蒸水，35 秒——完全不搅拌、不摇晃，靠水流自身湍流润粉。" },
-                { name: "第二段 · 第二注",   percentage: 0.2333, note: "0:35 注入 70g，继续不搅。" },
-                { name: "第三段 · 第三注",   percentage: 0.20,   note: "约 1:05 等粉床见底立即注入 60g。" },
-                { name: "第四段 · 第四注",   percentage: 0.20,   note: "约 1:35 同样在粉床见底时注入 60g。" },
-                { name: "第五段 · 第五注",   percentage: 0.20,   note: "约 2:05 最后 60g，总时长 2:40。" },
+                { name: "第一段 · 无搅闷蒸", time: "0:00", percentage: 0.1667, note: "注入闷蒸水，35 秒——完全不搅拌、不摇晃，靠水流自身湍流润粉。" },
+                { name: "第二段 · 第二注",   time: "0:35", percentage: 0.2333, note: "继续不搅。" },
+                { name: "第三段 · 第三注",   time: "1:05", percentage: 0.20,   note: "等粉床见底立即注入。" },
+                { name: "第四段 · 第四注",   time: "1:35", percentage: 0.20,   note: "同样在粉床见底时注入。" },
+                { name: "第五段 · 第五注",   time: "2:05", percentage: 0.20,   note: "最后一注，总时长 2:40。" },
             ],
         },
         hsu: {
@@ -641,10 +642,10 @@
             time: "2'30\" - 3'00\"",
             flavor: "许世元 Sherry Hsu 2022 墨尔本 WBrC 首位台湾女性冠军。咖啡是哥伦比亚 Finca Mikava CoE 史上最高分（92.71）的厌氧日晒瑰夏，Orea V3 锥形里塞 Kalita 185 波浪滤纸做流速 hack。最具开创性的是“冷水首注”——70℃ 闷蒸保留花果香的挥发性芳香，后三段切到 95℃ 拉出 body。开启了 2022 后的“双温度”时代。",
             steps: [
-                { name: "第一段 · 70℃ 冷闷蒸",     percentage: 0.25, note: "0:00 用 70℃ 水绕圈注入 50g，闷蒸 30 秒。低温保留花果芳香。" },
-                { name: "第二段 · 95℃ 绕圈",       percentage: 0.25, note: "0:30 切到 95℃ 高温水，由内向外绕圈注入 50g。" },
-                { name: "第三段 · 95℃ 中心",       percentage: 0.25, note: "1:00 95℃ 中心点注 50g，主体萃取开始。" },
-                { name: "第四段 · 95℃ 中心收尾",   percentage: 0.25, note: "1:30 同样中心点注 50g。2:30–3:00 完成滴流。" },
+                { name: "第一段 · 70℃ 冷闷蒸",     time: "0:00", percentage: 0.25, note: "用 70℃ 水绕圈注入，闷蒸 30 秒。低温保留花果芳香。" },
+                { name: "第二段 · 95℃ 绕圈",       time: "0:30", percentage: 0.25, note: "切到 95℃ 高温水，由内向外绕圈注入。" },
+                { name: "第三段 · 95℃ 中心",       time: "1:00", percentage: 0.25, note: "95℃ 中心点注入，主体萃取开始。" },
+                { name: "第四段 · 95℃ 中心收尾",   time: "1:30", percentage: 0.25, note: "同样中心点注入。2:30–3:00 完成滴流。" },
             ],
         },
         wolfl: {
@@ -656,10 +657,10 @@
             time: "约 2'20\" - 2'25\"",
             flavor: "Martin Wölfl 2024 芝加哥 WBrC 冠军——首位现场磨豆（Mazzer ZM 上台）、首位以 Orea V4 + Sibarist FAST 这套“无旁通快滤”硬件夺冠。咖啡是 Lost Origin 加工的 Finca Maya 厌氧瑰夏，配 Apax 定制水。注水节奏接近 Kasuya 4:6 但更快，总时长压到 2:25 内，是 2022 后“快冲流”的代表。",
             steps: [
-                { name: "第一段 · 闷蒸",     percentage: 0.222, note: "0:00 注入 60g 闷蒸水，约 30 秒。" },
-                { name: "第二段 · 第二注",   percentage: 0.222, note: "0:30 注水至 120g（约 0:40 完成）。" },
-                { name: "第三段 · 第三注",   percentage: 0.185, note: "1:10–1:20 注水至 170g。" },
-                { name: "第四段 · 收尾注",   percentage: 0.371, note: "1:30–2:00 注水至 270g。总时长 2:20–2:25。" },
+                { name: "第一段 · 闷蒸",     time: "0:00", percentage: 0.222, note: "注入闷蒸水，约 30 秒。" },
+                { name: "第二段 · 第二注",   time: "0:30", percentage: 0.222, note: "注水（约 0:40 完成）。" },
+                { name: "第三段 · 第三注",   time: "1:10", percentage: 0.185, note: "1:10–1:20 注水。" },
+                { name: "第四段 · 收尾注",   time: "1:30", percentage: 0.371, note: "1:30–2:00 注水。总时长 2:20–2:25。" },
             ],
         },
         peng: {
@@ -671,9 +672,9 @@
             time: "约 1'45\"",
             flavor: "彭锦阳 George Peng 2025 雅加达 WBrC 冠军——首位用 SOLO + 无旁通硬件套装夺冠，把 Sherry Hsu 开创的“双温度”流推到了极致。咖啡是 Mount Totumas $3,422/kg 拍卖批次的瑰夏，预混了三种烘焙曲线（5g × 3 = 15g）层叠花、果、body。主题“温度作为感官工具”——从烘豆、冲煮到出杯温度都被精算。",
             steps: [
-                { name: "第一段 · 96℃ 闷蒸",         percentage: 0.143, note: "0:00 在已用 96℃ 80g 预热并倒掉的滤杯里注入 30g @ 96℃，逆时针绕圈三圈，6 秒完成。" },
-                { name: "第二段 · 96℃ 主注",         percentage: 0.429, note: "0:30 注入 90g @ 96℃，约 10 秒完成。" },
-                { name: "第三段 · 80℃ Melodrip 收尾", percentage: 0.429, note: "1:10 切到 80℃ 水，通过 Melodrip 注入 90g。1:45 滴流结束。" },
+                { name: "第一段 · 96℃ 闷蒸",         time: "0:00", percentage: 0.143, note: "在已用 96℃ 80g 预热并倒掉的滤杯里注入 @ 96℃，逆时针绕圈三圈，6 秒完成。" },
+                { name: "第二段 · 96℃ 主注",         time: "0:30", percentage: 0.429, note: "注入 @ 96℃，约 10 秒完成。" },
+                { name: "第三段 · 80℃ Melodrip 收尾", time: "1:10", percentage: 0.429, note: "切到 80℃ 水，通过 Melodrip 注入。1:45 滴流结束。" },
             ],
         },
         hoffmann: {
@@ -685,9 +686,9 @@
             time: "约 3'30\"",
             flavor: "James Hoffmann 2020 年发布的《Ultimate V60 Technique》——YouTube 单片播放量超 1000 万次的家庭手冲事实标准。两段大注水替代多次脉冲，用 swirl 替代搅拌（更均匀），用 Rao Spin 平整粉床（防穴道效应），高水温补偿 V60 散热。是西方家庭入门首选，平衡、清澈、突出豆本身风味。",
             steps: [
-                { name: "第一段 · 闷蒸 + swirl",        percentage: 0.12, note: "0:00 注入 60g 闷蒸水（粉重 ×2），立即给 V60 一次逆时针 swirl —— 单手端起整个滤杯快速转一圈，靠水浆惯性把粉床晃平、让水均匀渗入每颗粉。等到 0:45。" },
-                { name: "第二段 · 主注 60%",            percentage: 0.48, note: "0:45 注水至 300g（60% 总水量），30 秒内完成。" },
-                { name: "第三段 · 主注剩余 + Rao spin", percentage: 0.40, note: "1:15 温柔注水至 500g（30 秒内）。1:45 用勺顺时针 + 逆时针各搅一次释放粘壁粉，再来一次 Rao spin —— 与开头的 swirl 同一手法、再次端杯旋转 —— 让粉床收尾时平整。3:30 完成。" },
+                { name: "第一段 · 闷蒸 + swirl",        time: "0:00", percentage: 0.12, note: "注入闷蒸水（粉重 ×2），立即给 V60 一次逆时针 swirl —— 单手端起整个滤杯快速转一圈，靠水浆惯性把粉床晃平、让水均匀渗入每颗粉。等到 0:45。" },
+                { name: "第二段 · 主注 60%",            time: "0:45", percentage: 0.48, note: "注水至 60% 总水量，30 秒内完成。" },
+                { name: "第三段 · 主注剩余 + Rao spin", time: "1:15", percentage: 0.40, note: "温柔注水至总量（30 秒内）。1:45 用勺顺时针 + 逆时针各搅一次释放粘壁粉，再来一次 Rao spin —— 与开头的 swirl 同一手法、再次端杯旋转 —— 让粉床收尾时平整。3:30 完成。" },
             ],
         },
         rao: {
@@ -699,9 +700,9 @@
             time: "4'00\" - 4'30\"",
             flavor: "Scott Rao 与 Hario UK 合作的高萃取版 V60 配方。核心是“Rao Spin”——闷蒸后用力旋转，让粉床完全平整；后续两段也辅以轻微旋转。粉床中央用手指挖一个“鸟巢”（bird's nest）凹陷利于水均匀渗入；只用塑胶 V60（保温佳）。强调“均匀萃取”，目标 22%–24.5% 萃取率仍保持清澈。",
             steps: [
-                { name: "第一段 · 闷蒸 + Rao Spin", percentage: 0.182, note: "0:00 注入 60g 闷蒸水，立即做一次 Rao Spin —— 单手端起整个 V60 用力转一圈，靠水浆惯性把粉床整体晃平、并把粘壁的细粉冲回粉层。这是 Scott Rao 推广的标志手法，用旋转的整体扰动替代勺子搅拌。" },
-                { name: "第二段 · 第二注",         percentage: 0.424, note: "0:40 注水至 200g，做一次极轻微旋转（约 1 秒，仅为填平凹槽）。等浆液下沉至 70%。" },
-                { name: "第三段 · 收尾注",         percentage: 0.394, note: "再注水至 330g，再一次轻微旋转。总时长 4:00–4:30。" },
+                { name: "第一段 · 闷蒸 + Rao Spin", time: "0:00", percentage: 0.182, note: "注入闷蒸水，立即做一次 Rao Spin —— 单手端起整个 V60 用力转一圈，靠水浆惯性把粉床整体晃平、并把粘壁的细粉冲回粉层。这是 Scott Rao 推广的标志手法，用旋转的整体扰动替代勺子搅拌。" },
+                { name: "第二段 · 第二注",         time: "0:40", percentage: 0.424, note: "注水，做一次极轻微旋转（约 1 秒，仅为填平凹槽）。等浆液下沉至 70%。" },
+                { name: "第三段 · 收尾注",         time: "1:20", percentage: 0.394, note: "再注水，再一次轻微旋转。总时长 4:00–4:30。" },
             ],
         },
         x_method: {
@@ -713,9 +714,9 @@
             time: "约 1'30\" - 2'00\"",
             flavor: "彭近洋 George Peng 2022 中国 WBrC 冠军方案，命名“无差别冲煮 / X Method”。同一份比例（1 : 2.5 : 5.5 : X，X 通常 4–6）应对任意豆，把变量减到最少；通过极粗研磨 + 严格比例制控制萃取率而非时间。首段即兼作闷蒸，中心粗流连续注水。是他 2025 WBrC 夺冠之前的早期代表作，强调“一套参数走天下”。",
             steps: [
-                { name: "第一段 · 兼闷蒸首注", percentage: 0.192, note: "0:00 中心粗流注入 37.5g（粉量 ×2.5）。不做独立闷蒸。" },
-                { name: "第二段 · 中段",       percentage: 0.423, note: "0:30 注入 82.5g。" },
-                { name: "第三段 · 收尾",       percentage: 0.385, note: "1:00 注入 75g。总时长 1:30–2:00。" },
+                { name: "第一段 · 兼闷蒸首注", time: "0:00", percentage: 0.192, note: "中心粗流注入。不做独立闷蒸。" },
+                { name: "第二段 · 中段",       time: "0:30", percentage: 0.423, note: "注入。" },
+                { name: "第三段 · 收尾",       time: "1:00", percentage: 0.385, note: "注入。总时长 1:30–2:00。" },
             ],
         },
     };
@@ -795,7 +796,8 @@
             cumulativeWater += stepWater;
             const stepDiv = document.createElement('div');
             stepDiv.className = 'step';
-            stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">注水至：<strong class="step-cumulative">${cumulativeWater.toFixed(1)}g</strong> <span class="step-delta">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
+            const timeLead = step.time ? `<span class="step-time">${step.time}</span> 开始注水，至 ` : '注水至 ';
+            stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">${timeLead}<strong class="step-cumulative">${cumulativeWater.toFixed(1)}g</strong> <span class="step-delta">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
             stepsList.appendChild(stepDiv);
         });
     }
