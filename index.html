@@ -462,7 +462,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.13')
+            navigator.serviceWorker.register('./sw.js?v=8.14')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -491,7 +491,7 @@
         el.id = 'a2hs';
         if (!isIPad) el.classList.add('with-caret');
         el.innerHTML =
-            '<div class="a2hs-txt"><b>把「咖啡冲煮助手」添加到主屏幕</b>' +
+            '<div class="a2hs-txt"><b>把「咖啡冲煮助手」添加为 App</b>' +
             '点按' + where + ' ' + shareIcon + ' 再选「添加到主屏幕」</div>' +
             '<button class="a2hs-close" aria-label="关闭">&times;</button>';
         document.body.appendChild(el);
