@@ -409,6 +409,7 @@
                     <option value="carlos">Carlos Medina 五段精准法 (2023)</option>
                     <option value="wolfl">Martin Wölfl Orea V4 快冲 (2024)</option>
                     <option value="peng">George Peng SOLO 双温度 (2025)</option>
+                    <option value="jelly">粕谷哲 果冻冲法 (2026)</option>
                     <option value="hoffmann">James Hoffmann Ultimate V60</option>
                     <option value="rao">Scott Rao 高萃取版</option>
                     <option value="x_method">彭近洋 无差别冲煮法</option>
@@ -461,7 +462,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.10')
+            navigator.serviceWorker.register('./sw.js?v=8.11')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -631,6 +632,27 @@
                 { name: "第三段 · 提升浓度", time: "1:25", percentage: 0.20, note: "后三段每次注水前，务必等待滤杯内的咖啡液完全流干、粉床露出后再行注入下一段。" },
                 { name: "第四段 · 控制流速", time: "2:05", percentage: 0.20, note: "保持断水节奏，精准稳定重力水流。" },
                 { name: "第五段 · 最后收尾", time: "2:35", percentage: 0.20, note: "灌入最后1/5水量，随后静置，等待最后滴滤滤干完成。" },
+            ],
+        },
+        jelly: {
+            hasDynamicRatio: false,
+            fixedRatio: 15,
+            temp: "95℃ - 96℃（不低于 95℃）",
+            gear: "NEO 滤杯（V60 亦可）",
+            grind: "超粗研磨（C40 MK3 刻度 #40–45）",
+            time: "约 3'30\"",
+            flavor: "粕谷哲在 2016 WBrC 夺冠满十周年（2026/5/30）发表的全新冲法，他在视频里甚至开玩笑：「自从发现这个冲法，我认真考虑重新报名 JBrC，坚信能用它再拿一次世界冠军。」核心三原则是「超粗研磨 + 极高温 + 高频小水量十次注水」：每次只注入约粉量 1.5 倍的水、每隔 15 秒一注，并尽量等粉床的水排干、再进入下一注——与当年成名的「四六冲法」讲究断水时机一脉相承。\n\n为什么这么粗的研磨反而更甜？粗颗粒透水慢，95–96℃ 的高温先打开最外层细胞壁、建立「热胀特性」；而每次仅注 1.5 份水，粉床的实际萃取温度上升得很慢，所以每一注都必须是高温水，才能持续把深处的甜感大分子溶解、扩散到粉表。十次高频脉冲像拔河一样维持着一股「持续不断的扩散拉力」——不是拉一下、停一下、再拉一下，而是在前一次萃取尚未结束时就用新热水重建浓度梯度，把更深层的物质一点点拖出来。\n\n风味会随注水演进：前几注主要带出明亮的酸质、花香与高扩散性的小分子；大约从第五注起开始触及粉层的深层结构，甜感、胶体与厚度被逐步拖出。所以超粗粉的作用不是「降低萃取」，而是「延长颗粒被打开的时间」。\n\n同时，超粗粉 + 小水量也限制了细粉向下迁移、从而避免过萃：大颗粒形成骨架、拦截路径变长，把细粉一层层卡住；前几注的高浓度咖啡浆又把细粉「粘」住、提高粘滞度；高浓度环境还减慢了细粉自身的扩散速率。约到第八注，水流才开始变慢——那是粗粉吸水膨胀、增加了阻力，而非细粉堵塞滤杯。\n\n成品最常见的体验：层次更丰富、甜感绵长、口感格外黏稠，同时干净度高、杂味少。粕谷哲形容降温后的咖啡液黏稠香甜，入口仿佛含着「果冻」——这正是其名字的由来。",
+            steps: [
+                { name: "第 1 注 · 闷蒸",  time: "0:00", percentage: 0.10, note: "以 95–96℃ 高温注入约粉量 1.5 倍的水（≈总量 10%），充分润湿排气，闷蒸 30 秒。" },
+                { name: "第 2 注",         time: "0:30", percentage: 0.10, note: "此后每隔 15 秒一注，每次约粉量 1.5 倍的水。高温让粉床萃取温度缓慢爬升。" },
+                { name: "第 3 注",         time: "0:45", percentage: 0.10, note: "高频短脉冲，尽量让粉床的水排干、再注下一次。" },
+                { name: "第 4 注",         time: "1:00", percentage: 0.10, note: "前几注主要带出酸质、花香等高扩散性的小分子。" },
+                { name: "第 5 注",         time: "1:15", percentage: 0.10, note: "约从这一注起开始触及粉层深处，逐步拖出甜感与胶体厚度。" },
+                { name: "第 6 注",         time: "1:30", percentage: 0.10, note: "维持持续的扩散拉力，像拔河一样不要中断节奏。" },
+                { name: "第 7 注",         time: "1:45", percentage: 0.10, note: "超粗研磨延长颗粒被打开的时间，甜感缓慢稳定释放。" },
+                { name: "第 8 注",         time: "2:00", percentage: 0.10, note: "约此时水流开始变慢——粗粉吸水膨胀、阻力增大，属正常现象。" },
+                { name: "第 9 注",         time: "2:15", percentage: 0.10, note: "倒数第二注，保持稳定的中心注水。" },
+                { name: "第 10 注 · 收尾", time: "2:30", percentage: 0.10, note: "最后一注。注完后静置约 60 秒排干，约 3:30 完成萃取。" },
             ],
         },
         one_pour: {
