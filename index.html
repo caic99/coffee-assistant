@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>咖啡冲煮助手</title>
 
-    <link rel="manifest" href="./manifest.json?v=8.13">
+    <link rel="manifest" href="./manifest.json?v=8.17">
 
     <meta name="theme-color" content="#f4ede4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="咖啡冲煮助手">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.7">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.7">
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.7">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.17">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.17">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.17">
 
     <style>
         :root {
@@ -460,7 +460,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.16')
+            navigator.serviceWorker.register('./sw.js?v=8.17')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
