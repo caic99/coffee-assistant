@@ -462,7 +462,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.14')
+            navigator.serviceWorker.register('./sw.js?v=8.15')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -486,13 +486,18 @@
             '<path d="M12 15V3"/><path d="m8 7 4-4 4 4"/>' +
             '<path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>';
 
+        const addIcon =                                                   // Safari "add to home screen" glyph: rounded square + plus
+            '<svg class="a2hs-share" width="17" height="17" viewBox="0 0 24 24" fill="none" ' +
+            'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8.5v7M8.5 12h7"/></svg>';
+
         const where = isIPad ? '顶部的分享按钮' : '下方的分享按钮';
         const el = document.createElement('div');
         el.id = 'a2hs';
         if (!isIPad) el.classList.add('with-caret');
         el.innerHTML =
             '<div class="a2hs-txt"><b>把「咖啡冲煮助手」添加为 App</b>' +
-            '点按' + where + ' ' + shareIcon + ' 再选「添加到主屏幕」</div>' +
+            '点按' + where + ' ' + shareIcon + ' 再选「添加到主屏幕」' + addIcon + '</div>' +
             '<button class="a2hs-close" aria-label="关闭">&times;</button>';
         document.body.appendChild(el);
 
