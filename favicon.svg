@@ -1,18 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <g fill="none" stroke="#3d2b1f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-    <!-- top rim -->
-    <line x1="10" y1="18" x2="54" y2="18"/>
-    <!-- cone walls + small bottom opening -->
-    <path d="M 13 18 L 28 50 L 36 50 L 51 18"/>
-    <!-- handle -->
-    <path d="M 51 23 Q 60 25 60 32 Q 60 39 52 41"/>
+  <!-- soft rounded tile -->
+  <rect width="64" height="64" rx="14" fill="#f4ede4"/>
+  <!-- cone axis on the tile centre (x=32); nudged down for vertical centring -->
+  <g transform="translate(0 1.7)">
+    <!-- spiral guide ribs FIRST (behind): symmetric on the axis, even spacing, gentle left bow -->
+    <g fill="none" stroke="#c68e5a" stroke-width="1.3" stroke-linecap="round" opacity="0.85">
+      <path d="M 25 24 Q 26.2 33 30.4 42"/>
+      <path d="M 32 24 Q 30.7 33 32.4 42"/>
+      <path d="M 39 24 Q 35.2 33 34.4 42"/>
+    </g>
+    <g fill="none" stroke="#3d2b1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- rim (side profile = flat line) -->
+      <line x1="16" y1="16" x2="48" y2="16"/>
+      <!-- cone walls tapering down -->
+      <path d="M 16 16 L 28 41"/>
+      <path d="M 48 16 L 36 41"/>
+      <!-- wide flat flange disc: the base that rests on the cup (~3/4 of rim) -->
+      <line x1="20" y1="41.5" x2="44" y2="41.5"/>
+      <!-- short foot ring that drops into the cup -->
+      <path d="M 27 41.5 L 27 44.5 L 37 44.5 L 37 41.5"/>
+      <!-- larger ear handle (merges tangentially into the wall, no crossing) -->
+      <path d="M 46 20 C 56 21 53 28 40 33"/>
+    </g>
   </g>
-  <!-- inner ribs (subtle) -->
-  <g fill="none" stroke="#c68e5a" stroke-width="1.6" stroke-linecap="round" opacity="0.85">
-    <line x1="22" y1="22" x2="30" y2="48"/>
-    <line x1="32" y1="22" x2="32" y2="48"/>
-    <line x1="42" y1="22" x2="34" y2="48"/>
-  </g>
-  <!-- drip -->
-  <circle cx="32" cy="56" r="1.6" fill="#3d2b1f"/>
 </svg>
