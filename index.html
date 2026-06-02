@@ -331,6 +331,26 @@
         .step-delta { color: var(--text-muted); font-size: 11px; }
         .step-time { color: var(--accent-color); font-weight: 600; font-size: 14px; font-variant-numeric: tabular-nums oldstyle-nums; }
         .step-note { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+        /* iOS Safari "add to home screen" hint */
+        #a2hs {
+            position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+            transform: translateX(-50%) translateY(20px);
+            width: calc(100% - 28px); max-width: 380px;
+            background: var(--container-bg); color: var(--text-main);
+            border: 1px solid var(--border-color); border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(61, 43, 31, 0.18);
+            padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+            opacity: 0; pointer-events: none; z-index: 9999;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #a2hs.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+        #a2hs .a2hs-txt { flex: 1; font-size: 13px; line-height: 1.45; }
+        #a2hs .a2hs-txt b { display: block; font-size: 14px; font-weight: 800; color: var(--primary-color); margin-bottom: 2px; }
+        #a2hs .a2hs-share { vertical-align: -3px; margin: 0 1px; color: var(--accent-color); }
+        #a2hs .a2hs-close { flex: none; width: 26px; height: 26px; border: 0; background: transparent; color: var(--text-muted); font-size: 20px; line-height: 1; cursor: pointer; }
+        /* down-caret toward Safari's bottom share button (iPhone); hidden on iPad */
+        #a2hs.with-caret::after { content: ""; position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); border: 8px solid transparent; border-top-color: var(--container-bg); }
     </style>
 </head>
 <body>
@@ -441,11 +461,48 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.6')
+            navigator.serviceWorker.register('./sw.js?v=8.10')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
     }
+
+    /* iOS Safari "Add to Home Screen" hint — Android/desktop install natively */
+    (function () {
+        const KEY = 'coffee.a2hsDismissed';
+        try { if (localStorage.getItem(KEY) === '1') return; } catch (_) {}
+
+        const ua = navigator.userAgent || '';
+        const isIPad = /ipad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isIOS = /iphone|ipod/i.test(ua) || isIPad;
+        const isSafari = !/crios|fxios|edgios/i.test(ua);                 // not Chrome/FF/Edge on iOS
+        const standalone = window.navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+        if (!isIOS || !isSafari || standalone) return;                    // only iOS Safari, not installed
+
+        const shareIcon =
+            '<svg class="a2hs-share" width="17" height="17" viewBox="0 0 24 24" fill="none" ' +
+            'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M12 15V3"/><path d="m8 7 4-4 4 4"/>' +
+            '<path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>';
+
+        const where = isIPad ? '顶部的分享按钮' : '下方的分享按钮';
+        const el = document.createElement('div');
+        el.id = 'a2hs';
+        if (!isIPad) el.classList.add('with-caret');
+        el.innerHTML =
+            '<div class="a2hs-txt"><b>把「咖啡冲煮助手」添加到主屏幕</b>' +
+            '点按' + where + ' ' + shareIcon + ' 再选「添加到主屏幕」</div>' +
+            '<button class="a2hs-close" aria-label="关闭">&times;</button>';
+        document.body.appendChild(el);
+
+        const dismiss = () => {
+            el.classList.remove('show');
+            try { localStorage.setItem(KEY, '1'); } catch (_) {}
+            setTimeout(() => el.remove(), 300);
+        };
+        el.querySelector('.a2hs-close').addEventListener('click', dismiss);
+        setTimeout(() => el.classList.add('show'), 1500);
+    })();
 
     const sliderEl = document.getElementById('beansSlider');
     const textEl = document.getElementById('beansValue');
