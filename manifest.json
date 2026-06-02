@@ -1,5 +1,5 @@
 {
-  "name": "Coffee Brewing Assistant",
+  "name": "咖啡冲煮助手",
   "short_name": "冲煮助手",
   "start_url": "./index.html",
   "display": "standalone",
