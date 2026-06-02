@@ -339,7 +339,7 @@
             width: calc(100% - 28px); max-width: 380px;
             background: var(--container-bg); color: var(--text-main);
             border: 1px solid var(--border-color); border-radius: 18px;
-            box-shadow: 0 12px 40px rgba(61, 43, 31, 0.18);
+            filter: drop-shadow(0 4px 14px rgba(61, 43, 31, 0.10));
             padding: 14px 16px; display: flex; align-items: center; gap: 12px;
             opacity: 0; pointer-events: none; z-index: 9999;
             transition: opacity 0.25s ease, transform 0.25s ease;
@@ -462,7 +462,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.11')
+            navigator.serviceWorker.register('./sw.js?v=8.12')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
