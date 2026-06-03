@@ -6,16 +6,16 @@
     <title>咖啡冲煮助手</title>
     <meta name="description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
 
-    <link rel="manifest" href="./manifest.json?v=8.18">
+    <link rel="manifest" href="./manifest.json?v=8.19">
 
     <meta name="theme-color" content="#f4ede4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="咖啡冲煮助手">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.18">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.18">
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.18">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.19">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.19">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.19">
 
     <!-- 社交分享预览 · Open Graph (Facebook / iMessage / Slack / 微信 / LinkedIn …) -->
     <meta property="og:type" content="website">
@@ -24,7 +24,7 @@
     <meta property="og:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
     <meta property="og:url" content="https://caic99.github.io/coffee-assistant/">
     <meta property="og:locale" content="zh_CN">
-    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.18">
+    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.19">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -34,7 +34,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="咖啡冲煮助手">
     <meta name="twitter:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
-    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.18">
+    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.19">
     <meta name="twitter:image:alt" content="咖啡冲煮助手 — 手冲咖啡冲煮看板">
 
     <style>
@@ -81,8 +81,12 @@
 
         .brand-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 14px; }
         .brand-header .zh-title { font-size: 22px; font-weight: 800; color: var(--primary-color); }
-        .gh-link { display: flex; align-items: center; color: var(--text-muted); opacity: 0.45; transition: opacity 0.15s, color 0.15s; }
-        .gh-link:hover, .gh-link:focus-visible { opacity: 1; color: var(--primary-color); outline: none; }
+        .header-actions { display: flex; align-items: center; gap: 14px; }
+        .icon-btn { display: flex; align-items: center; background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent-color); opacity: 0.8; transition: opacity 0.15s; -webkit-tap-highlight-color: transparent; }
+        .icon-btn:hover, .icon-btn:focus-visible { opacity: 1; outline: none; }
+
+        .toast { position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(8px); background: var(--primary-color); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 600; box-shadow: 0 10px 30px rgba(61, 43, 31, 0.22); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; z-index: 999; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         .input-group {
             margin-bottom: 14px;
@@ -371,6 +375,24 @@
         #a2hs .a2hs-close { flex: none; width: 26px; height: 26px; border: 0; background: transparent; color: var(--text-muted); font-size: 20px; line-height: 1; cursor: pointer; }
         /* down-caret toward Safari's bottom share button (iPhone); hidden on iPad */
         #a2hs.with-caret::after { content: ""; position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); border: 8px solid transparent; border-top-color: var(--container-bg); }
+
+        /* 长时间停留后的分享提示（复用上面的卡片风格） */
+        #sharePrompt {
+            position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+            transform: translateX(-50%) translateY(20px);
+            width: calc(100% - 28px); max-width: 380px;
+            background: var(--container-bg); color: var(--text-main);
+            border: 1px solid var(--border-color); border-radius: 18px;
+            filter: drop-shadow(0 4px 14px rgba(61, 43, 31, 0.10));
+            padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+            opacity: 0; pointer-events: none; z-index: 9999;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #sharePrompt.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+        #sharePrompt .sp-txt { flex: 1; font-size: 13px; line-height: 1.45; }
+        #sharePrompt .sp-txt b { display: block; font-size: 14px; font-weight: 800; color: var(--primary-color); margin-bottom: 2px; }
+        #sharePrompt .sp-share { flex: none; }
+        #sharePrompt .sp-close { flex: none; width: 26px; height: 26px; border: 0; background: transparent; color: var(--text-muted); font-size: 20px; line-height: 1; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -383,11 +405,18 @@
         <div class="brand-titles">
             <div class="zh-title">咖啡冲煮助手</div>
         </div>
-        <a class="gh-link" href="https://github.com/caic99/coffee-assistant" target="_blank" rel="noopener" aria-label="View source on GitHub">
-            <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-            </svg>
-        </a>
+        <div class="header-actions">
+            <button type="button" class="icon-btn" id="shareBtn" aria-label="分享" onclick="sharePage()">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 15V3"/><path d="m8 7 4-4 4 4"/><path d="M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8"/>
+                </svg>
+            </button>
+            <a class="icon-btn" href="https://github.com/caic99/coffee-assistant" target="_blank" rel="noopener" aria-label="View source on GitHub">
+                <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+            </a>
+        </div>
     </div>
 
     <div class="input-group">
@@ -481,10 +510,53 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.18')
+            navigator.serviceWorker.register('./sw.js?v=8.19')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
+    }
+
+    // 分享：优先唤起系统分享面板，不支持时回退到复制链接
+    function sharePage() {
+        const url = location.protocol.indexOf('http') === 0
+            ? location.href
+            : 'https://caic99.github.io/coffee-assistant/';
+        const data = {
+            title: '咖啡冲煮助手',
+            text: '手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。',
+            url: url
+        };
+        if (navigator.share) {
+            navigator.share(data).catch(err => {
+                if (!err || err.name !== 'AbortError') copyLink(url);   // 忽略用户取消
+            });
+        } else {
+            copyLink(url);
+        }
+    }
+
+    function copyLink(url) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url)
+                .then(() => showToast('已复制链接'))
+                .catch(() => showToast('复制失败，请手动复制'));
+        } else {
+            showToast(url);
+        }
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = 'toast';
+            t.className = 'toast';
+            document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        clearTimeout(showToast._timer);
+        requestAnimationFrame(() => t.classList.add('show'));
+        showToast._timer = setTimeout(() => t.classList.remove('show'), 1800);
     }
 
     /* iOS Safari "Add to Home Screen" hint — Android/desktop install natively */
@@ -527,6 +599,58 @@
         };
         el.querySelector('.a2hs-close').addEventListener('click', dismiss);
         setTimeout(() => el.classList.add('show'), 1500);
+    })();
+
+    // 停留足够久（默认 3 分钟前台时间）后，轻量提示分享一次
+    (function () {
+        const KEY = 'coffee.sharePromptShown';
+        const DELAY_MS = 3 * 60 * 1000;                  // 想调整时长改这里
+        try { if (localStorage.getItem(KEY) === '1') return; } catch (_) {}
+
+        let shown = false, elapsed = 0, since = Date.now(), timer = null;
+
+        function arm() {
+            if (shown) return;
+            since = Date.now();
+            timer = setTimeout(show, Math.max(0, DELAY_MS - elapsed));
+        }
+        function disarm() {
+            clearTimeout(timer);
+            elapsed += Date.now() - since;               // 只累计前台停留时间
+        }
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) disarm(); else arm();
+        });
+
+        function show() {
+            if (shown) return;
+            shown = true;
+            try { localStorage.setItem(KEY, '1'); } catch (_) {}   // 整个生命周期只弹一次
+
+            const a2hs = document.getElementById('a2hs');           // 避免和「添加到主屏幕」提示重叠
+            if (a2hs) a2hs.remove();
+
+            const el = document.createElement('div');
+            el.id = 'sharePrompt';
+            el.innerHTML =
+                '<div class="sp-txt"><b>觉得好用？</b>分享给同样爱咖啡的朋友吧 ☕</div>' +
+                '<button class="sp-share icon-btn" type="button" aria-label="分享">' +
+                    '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                    '<path d="M12 15V3"/><path d="m8 7 4-4 4 4"/><path d="M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8"/></svg>' +
+                '</button>' +
+                '<button class="sp-close" aria-label="关闭">&times;</button>';
+            document.body.appendChild(el);
+
+            const close = () => {
+                el.classList.remove('show');
+                setTimeout(() => el.remove(), 300);
+            };
+            el.querySelector('.sp-share').addEventListener('click', () => { sharePage(); close(); });
+            el.querySelector('.sp-close').addEventListener('click', close);
+            requestAnimationFrame(() => el.classList.add('show'));
+        }
+
+        if (!document.hidden) arm();
     })();
 
     const sliderEl = document.getElementById('beansSlider');
