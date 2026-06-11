@@ -6,7 +6,7 @@
     <title>咖啡冲煮助手</title>
     <meta name="description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
 
-    <link rel="manifest" href="./manifest.json?v=8.22">
+    <link rel="manifest" href="./manifest.json?v=8.23">
 
     <meta name="theme-color" content="#f4ede4">
     <meta name="mobile-web-app-capable" content="yes">
@@ -14,9 +14,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="咖啡冲煮助手">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.22">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.22">
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.22">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.23">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.23">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.23">
 
     <!-- 社交分享预览 · Open Graph (Facebook / iMessage / Slack / 微信 / LinkedIn …) -->
     <meta property="og:type" content="website">
@@ -25,7 +25,7 @@
     <meta property="og:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
     <meta property="og:url" content="https://caic99.github.io/coffee-assistant/">
     <meta property="og:locale" content="zh_CN">
-    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.22">
+    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.23">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -35,7 +35,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="咖啡冲煮助手">
     <meta name="twitter:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
-    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.22">
+    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.23">
     <meta name="twitter:image:alt" content="咖啡冲煮助手 — 手冲咖啡冲煮看板">
 
     <link rel="canonical" href="https://caic99.github.io/coffee-assistant/">
@@ -100,7 +100,8 @@
         .bg-abstract-top { position: absolute; top: -20px; right: 30px; width: 220px; height: 220px; opacity: 0.08; z-index: -1; pointer-events: none; }
         .bg-abstract-bottom { position: absolute; bottom: -50px; left: -40px; width: 160px; height: 160px; opacity: 0.05; z-index: -1; pointer-events: none; }
 
-        .brand-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 14px; }
+        /* 文本左缘统一基准线：卡片边缘 + 15px（带 1px 边框的容器用 14px 补偿） */
+        .brand-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 15px; }
         .brand-header .zh-title { font-size: 22px; font-weight: 800; color: var(--primary-color); }
         .header-actions { display: flex; align-items: center; gap: 14px; }
         .icon-btn { display: flex; align-items: center; background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent-color); opacity: 0.8; transition: opacity 0.15s; -webkit-tap-highlight-color: transparent; }
@@ -117,7 +118,8 @@
 
         .grid-two-columns {
             display: grid;
-            grid-template-columns: 2.1fr 1fr;
+            /* 粉水比内容最宽仅"1 : 16.67"，固定窄列把空间让给长方案名 */
+            grid-template-columns: 1fr 88px;
             gap: 12px;
             margin-bottom: 14px;
         }
@@ -126,7 +128,7 @@
         label {
             display: block;
             margin-bottom: 6px;
-            padding-left: 14px;
+            padding-left: 15px;
             font-weight: 700;
             color: var(--primary-color);
             font-size: 13px;
@@ -312,7 +314,7 @@
         select {
             width: 100%;
             height: 100%;
-            padding: 0 36px 0 12px;
+            padding: 0 32px 0 14px;
             border: none;
             font-size: 14px;
             background: transparent;
@@ -330,7 +332,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
+            width: 28px;
             height: 100%;
             position: absolute;
             right: 0;
@@ -340,7 +342,7 @@
             pointer-events: none;
         }
         .select-wrapper.locked::after { display: none; }
-        .select-wrapper.locked select { cursor: default; padding-right: 12px; }
+        .select-wrapper.locked select { cursor: default; padding-right: 14px; }
         select:disabled {
             color: var(--text-main);
             -webkit-text-fill-color: var(--text-main);
@@ -354,7 +356,7 @@
 
         .recipe-details-box .details-content { display: none; }
         details[open] .details-content {
-            padding: 14px 16px;
+            padding: 14px;
             font-size: 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -370,8 +372,9 @@
 
         .result { margin-top: 16px; background-color: var(--highlight-bg); border-radius: 14px; border: 1px solid var(--border-color); overflow: hidden; }
         .result h3 { margin: 0; padding: 10px 14px; background: #f4ede4; color: var(--primary-color); font-weight: 700; font-size: 12px; }
-        .result-body { padding: 10px 16px 14px; background: var(--container-bg); }
-        .total-highlight { font-size: 12px; margin: 0 -8px 10px; background: #f4ede4; padding: 6px; border-radius: 6px; color: var(--primary-color); }
+        .result-body { padding: 10px 14px 14px; background: var(--container-bg); }
+        .total-highlight { font-size: 12px; margin: 0 -8px 10px; background: #f4ede4; padding: 6px 8px; border-radius: 6px; color: var(--primary-color); }
+        .nowrap { white-space: nowrap; }
         .total-highlight .sep { color: var(--text-muted); margin: 0 2px; }
         .dashboard-total { color: var(--accent-color); }
         .step { margin: 0 0 10px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-color); }
@@ -379,7 +382,7 @@
         .step-title { font-weight: 700; color: var(--primary-color); margin-bottom: 2px; display: flex; justify-content: space-between; font-size: 13px; }
         .step-details { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
         .step-cumulative { color: var(--primary-color); font-size: 15px; }
-        .step-delta { color: var(--text-muted); font-size: 11px; }
+        .step-delta { color: var(--text-muted); font-size: 11px; white-space: nowrap; }
         .step-time { color: var(--accent-color); font-weight: 600; font-size: 14px; font-variant-numeric: tabular-nums oldstyle-nums; }
         .step-note { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
@@ -475,19 +478,19 @@
                 <select id="recipe" onchange="onRecipeChange()">
                     <option value="classic" selected>经典三段式</option>
                     <option value="one_pour">极致一刀流</option>
-                    <option value="perger">Matt Perger 教学版 (2012)</option>
+                    <option value="perger">Perger 教学版 (2012)</option>
                     <option value="four_six">粕谷哲 四六冲煮法 (2016)</option>
                     <option value="wang">王策 中心注水法 (2017)</option>
-                    <option value="fukahori">Emi Fukahori 三温度浸泡 (2018)</option>
+                    <option value="fukahori">Fukahori 三温度浸泡 (2018)</option>
                     <option value="du">杜嘉宁 高温快冲法 (2019)</option>
-                    <option value="winton">Matt Winton 五段无搅 (2021)</option>
-                    <option value="hsu">Sherry Hsu 双温度 (2022)</option>
-                    <option value="carlos">Carlos Medina 五段精准法 (2023)</option>
-                    <option value="wolfl">Martin Wölfl Orea V4 快冲 (2024)</option>
-                    <option value="peng">George Peng SOLO 双温度 (2025)</option>
+                    <option value="winton">Winton 五段无搅 (2021)</option>
+                    <option value="hsu">许世元 双温度 (2022)</option>
+                    <option value="carlos">Medina 五段精准法 (2023)</option>
+                    <option value="wolfl">Wölfl Orea V4 快冲 (2024)</option>
+                    <option value="peng">彭锦阳 SOLO 双温度 (2025)</option>
                     <option value="jelly">粕谷哲 果冻冲法 (2026)</option>
-                    <option value="hoffmann">James Hoffmann Ultimate V60</option>
-                    <option value="rao">Scott Rao 高萃取版</option>
+                    <option value="hoffmann">Hoffmann Ultimate V60</option>
+                    <option value="rao">Rao 高萃取版</option>
                     <option value="x_method">彭近洋 无差别冲煮法</option>
                 </select>
             </div>
@@ -512,7 +515,7 @@
     </div>
 
     <details class="recipe-details-box" id="recipeDetails">
-        <summary>冲煮方案</summary>
+        <summary>方案详情</summary>
         <div class="details-content">
             <div class="info-item"><span class="info-label">推荐水温</span><span class="info-value" id="viewTemp">-</span></div>
             <div class="info-item"><span class="info-label">推荐器具</span><span class="info-value" id="viewGear">-</span></div>
@@ -526,9 +529,9 @@
         <h3>冲煮看板</h3>
         <div class="result-body">
             <div class="total-highlight" aria-live="polite">
-                目标注水：<strong id="totalWater" class="dashboard-total"></strong> g
-                <span class="sep">|</span> 粉水比：<strong><span id="currentRatio"></span></strong>
-                <span class="sep">|</span> 咖啡粉重量：<strong id="currentBeans"></strong> g
+                <span class="nowrap">目标注水：<strong id="totalWater" class="dashboard-total"></strong> g <span class="sep">|</span></span>
+                <span class="nowrap">粉水比：<strong><span id="currentRatio"></span></strong> <span class="sep">|</span></span>
+                <span class="nowrap">咖啡粉重量：<strong id="currentBeans"></strong> g</span>
             </div>
             <div id="stepsList"></div>
         </div>
@@ -538,7 +541,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.22')
+            navigator.serviceWorker.register('./sw.js?v=8.23')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -1090,13 +1093,15 @@
         stepsList.innerHTML = '';
         let cumulativeWater = 0;
 
-        recipe.steps.forEach((step) => {
-            const stepWater = totalWater * step.percentage;
+        recipe.steps.forEach((step, i) => {
+            // 最后一段收敛到目标总量，避免百分比舍入导致 210.2g ≠ 210.0g 这类偏差
+            const isLast = i === recipe.steps.length - 1;
+            const stepWater = isLast ? totalWater - cumulativeWater : totalWater * step.percentage;
             cumulativeWater += stepWater;
             const stepDiv = document.createElement('div');
             stepDiv.className = 'step';
-            const timeLead = step.time ? `<span class="step-time">${step.time}</span> 开始注水，至 ` : '注水至 ';
-            stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">${timeLead}<strong class="step-cumulative">${cumulativeWater.toFixed(1)}g</strong> <span class="step-delta">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
+            const timeLead = step.time ? `<span class="step-time">${step.time}</span> 开始注水，<span class="nowrap">至 ` : '<span class="nowrap">注水至 ';
+            stepDiv.innerHTML = `<div class="step-title">${step.name}</div><div class="step-details">${timeLead}<strong class="step-cumulative">${cumulativeWater.toFixed(1)}g</strong></span> <span class="step-delta">· +${stepWater.toFixed(1)}g, ${(step.percentage * 100).toFixed(0)}%</span></div><div class="step-note">${step.note}</div>`;
             stepsList.appendChild(stepDiv);
         });
     }
