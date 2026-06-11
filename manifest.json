@@ -1,10 +1,14 @@
 {
+  "id": "./index.html",
   "name": "咖啡冲煮助手",
   "short_name": "咖啡冲煮助手",
+  "description": "手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。",
+  "lang": "zh-CN",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f4ede4",
   "theme_color": "#f4ede4",
+  "categories": ["food", "utilities"],
   "icons": [
     {
       "src": "./favicon.svg",
@@ -23,6 +27,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./preview.png",
+      "sizes": "970x1854",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "冲煮看板主界面：选方案、调粉量、看分段注水时间表"
+    },
+    {
+      "src": "./og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "咖啡冲煮助手 — 手冲咖啡冲煮看板"
     }
   ]
 }

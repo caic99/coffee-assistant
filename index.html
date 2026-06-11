@@ -6,16 +6,17 @@
     <title>咖啡冲煮助手</title>
     <meta name="description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
 
-    <link rel="manifest" href="./manifest.json?v=8.20">
+    <link rel="manifest" href="./manifest.json?v=8.21">
 
     <meta name="theme-color" content="#f4ede4">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="咖啡冲煮助手">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.20">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.20">
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.20">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.21">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.21">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.21">
 
     <!-- 社交分享预览 · Open Graph (Facebook / iMessage / Slack / 微信 / LinkedIn …) -->
     <meta property="og:type" content="website">
@@ -24,7 +25,7 @@
     <meta property="og:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
     <meta property="og:url" content="https://caic99.github.io/coffee-assistant/">
     <meta property="og:locale" content="zh_CN">
-    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.20">
+    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.21">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -34,8 +35,28 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="咖啡冲煮助手">
     <meta name="twitter:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
-    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.20">
+    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.21">
     <meta name="twitter:image:alt" content="咖啡冲煮助手 — 手冲咖啡冲煮看板">
+
+    <link rel="canonical" href="https://caic99.github.io/coffee-assistant/">
+
+    <!-- 搜索引擎结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "咖啡冲煮助手",
+      "url": "https://caic99.github.io/coffee-assistant/",
+      "description": "手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。",
+      "inLanguage": "zh-CN",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+      "image": "https://caic99.github.io/coffee-assistant/og-image.png",
+      "author": { "@type": "Person", "name": "Chun Cai", "url": "https://github.com/caic99" },
+      "featureList": "经典三段式、粕谷哲四六冲煮法、果冻冲法、James Hoffmann Ultimate V60 等 15 个手冲方案；按粉量自动换算分段注水量；可安装为 App，离线可用"
+    }
+    </script>
 
     <style>
         :root {
@@ -271,6 +292,12 @@
             box-shadow: 0 1px 5px rgba(61, 43, 31, 0.4);
         }
 
+        /* 键盘焦点可见性（鼠标/触摸操作不触发） */
+        .center-display-wrapper:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 2px; border-radius: 10px; }
+        input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 1px 5px rgba(61, 43, 31, 0.4), 0 0 0 3px rgba(168, 112, 63, 0.35); }
+        input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 1px 5px rgba(61, 43, 31, 0.4), 0 0 0 3px rgba(168, 112, 63, 0.35); }
+        .select-wrapper:focus-within { border-color: var(--accent-color); }
+
         .select-wrapper {
             position: relative;
             display: block;
@@ -398,8 +425,8 @@
 <body>
 
 <div class="container">
-    <svg class="bg-abstract-top" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round"><path d="M10 20 L90 20 L50 85 Z" /><line x1="25" y1="44" x2="75" y2="44" stroke-dasharray="2 3" /><ellipse cx="50" cy="20" rx="20" ry="12" fill="none" stroke-width="1" transform="rotate(45 50 20)" /><path d="M40 10 C45 20 50 20 60 30" stroke-width="1.5" /></svg>
-    <svg class="bg-abstract-bottom" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.2"><path d="M10 90 C10 40, 50 30, 60 30" stroke-width="2" /><path d="M60 30 C75 30, 90 10, 85 5" stroke-width="1.5" stroke-linecap="round" /><circle cx="10" cy="90" r="30" stroke-dasharray="4 4" /></svg>
+    <svg class="bg-abstract-top" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M10 20 L90 20 L50 85 Z" /><line x1="25" y1="44" x2="75" y2="44" stroke-dasharray="2 3" /><ellipse cx="50" cy="20" rx="20" ry="12" fill="none" stroke-width="1" transform="rotate(45 50 20)" /><path d="M40 10 C45 20 50 20 60 30" stroke-width="1.5" /></svg>
+    <svg class="bg-abstract-bottom" viewBox="0 0 100 100" fill="none" stroke="var(--primary-color)" stroke-width="1.2" aria-hidden="true"><path d="M10 90 C10 40, 50 30, 60 30" stroke-width="2" /><path d="M60 30 C75 30, 90 10, 85 5" stroke-width="1.5" stroke-linecap="round" /><circle cx="10" cy="90" r="30" stroke-dasharray="4 4" /></svg>
 
     <div class="brand-header">
         <div class="brand-titles">
@@ -420,14 +447,14 @@
     </div>
 
     <div class="input-group">
-        <label>咖啡粉重量:</label>
+        <label for="beansSlider">咖啡粉重量:</label>
         <div class="glass-panel">
-            <div class="center-display-wrapper" id="displayWrapper" onclick="enableManualInput()">
+            <div class="center-display-wrapper" id="displayWrapper" role="button" tabindex="0" aria-label="编辑咖啡粉重量" onclick="enableManualInput()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();enableManualInput();}">
                 <span class="beans-large-text" id="beansValue">15.0</span>
-                <input type="number" id="beansInput" class="beans-input-hidden" step="0.1" min="0.1" max="9999" inputmode="decimal" onblur="disableManualInput()">
+                <input type="number" id="beansInput" class="beans-input-hidden" step="0.1" min="0.1" max="9999" inputmode="decimal" aria-label="咖啡粉重量（克）" onblur="disableManualInput()">
                 <div class="beans-right-group">
                     <span class="beans-unit">克</span>
-                    <svg class="edit-pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="edit-pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                         <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"></path>
                     </svg>
@@ -497,7 +524,7 @@
     <div id="resultBox" class="result">
         <h3>冲煮看板</h3>
         <div class="result-body">
-            <div class="total-highlight">
+            <div class="total-highlight" aria-live="polite">
                 目标注水：<strong id="totalWater" class="dashboard-total"></strong> g
                 <span class="sep">|</span> 粉水比：<strong><span id="currentRatio"></span></strong>
                 <span class="sep">|</span> 咖啡粉重量：<strong id="currentBeans"></strong> g
@@ -510,7 +537,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.20')
+            navigator.serviceWorker.register('./sw.js?v=8.21')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -551,6 +578,7 @@
             t = document.createElement('div');
             t.id = 'toast';
             t.className = 'toast';
+            t.setAttribute('role', 'status');
             document.body.appendChild(t);
         }
         t.textContent = msg;
