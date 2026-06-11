@@ -6,7 +6,7 @@
     <title>咖啡冲煮助手</title>
     <meta name="description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
 
-    <link rel="manifest" href="./manifest.json?v=8.21">
+    <link rel="manifest" href="./manifest.json?v=8.22">
 
     <meta name="theme-color" content="#f4ede4">
     <meta name="mobile-web-app-capable" content="yes">
@@ -14,9 +14,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="咖啡冲煮助手">
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.21">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.21">
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.21">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=8.22">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=8.22">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=8.22">
 
     <!-- 社交分享预览 · Open Graph (Facebook / iMessage / Slack / 微信 / LinkedIn …) -->
     <meta property="og:type" content="website">
@@ -25,7 +25,7 @@
     <meta property="og:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
     <meta property="og:url" content="https://caic99.github.io/coffee-assistant/">
     <meta property="og:locale" content="zh_CN">
-    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.21">
+    <meta property="og:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.22">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -35,7 +35,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="咖啡冲煮助手">
     <meta name="twitter:description" content="手冲咖啡冲煮看板。挑方案、调粉量、定粉水比，生成分段注水时间表。">
-    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.21">
+    <meta name="twitter:image" content="https://caic99.github.io/coffee-assistant/og-image.png?v=8.22">
     <meta name="twitter:image:alt" content="咖啡冲煮助手 — 手冲咖啡冲煮看板">
 
     <link rel="canonical" href="https://caic99.github.io/coffee-assistant/">
@@ -477,6 +477,7 @@
                     <option value="one_pour">极致一刀流</option>
                     <option value="perger">Matt Perger 教学版 (2012)</option>
                     <option value="four_six">粕谷哲 四六冲煮法 (2016)</option>
+                    <option value="wang">王策 中心注水法 (2017)</option>
                     <option value="fukahori">Emi Fukahori 三温度浸泡 (2018)</option>
                     <option value="du">杜嘉宁 高温快冲法 (2019)</option>
                     <option value="winton">Matt Winton 五段无搅 (2021)</option>
@@ -537,7 +538,7 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js?v=8.21')
+            navigator.serviceWorker.register('./sw.js?v=8.22')
                 .then(reg => console.log('PWA 已成功部署。'))
                 .catch(err => console.log(err));
         });
@@ -886,6 +887,19 @@
                 { name: "第一段 · 强搅闷蒸", time: "0:00", percentage: 0.25, note: "注入闷蒸水，立即用勺像匪徒一样剧烈搅拌（stir like a bandit）。" },
                 { name: "第二段 · 螺旋注水", time: "0:30", percentage: 0.25, note: "由中心向外螺旋（南半球逆时针、北半球顺时针）。" },
                 { name: "第三段 · 螺旋收尾", time: "1:00", percentage: 0.50, note: "同样螺旋方式。目标总时长 2:20。" },
+            ],
+        },
+        wang: {
+            hasDynamicRatio: false,
+            fixedRatio: 16.67,
+            temp: "92℃ - 93℃",
+            gear: "陶瓷 Hario V60（烫热后放凉再用）+ 白色滤纸",
+            grind: "极细研磨，筛分后主体约 400 μm",
+            time: "2'00\" - 2'15\"",
+            flavor: "王策 Chad Wang 2017 布达佩斯 WBrC 冠军，首位华人世界冲煮冠军。方案以「极简」著称，全程只有两个动作：绕圈闷蒸 + 一次连续中心注水。两个反常识的关键点：其一，刻意使用降温后的厚陶瓷 V60（先以 300g 热水烫热、再放凉 10–15 分钟），用厚陶瓷的温度惯性「压」住萃取前段的温度；其二，主注水全程对准中心定点、绝不绕圈——他认为绕圈会把细粉抬上表层、粘附杯壁，造成各处萃取率不一：同一支粉绕圈要冲到 3:30，中心注水 2:00 即可流完。配套极细研磨（筛分后主体约 400μm）与 TDS 约 70ppm、pH 6.7–6.8 的赛用水，夺冠用豆为 Ninety Plus 巴拿马 Volcán 1,800 米产区瑰夏。本配方适合优质浅烘豆，王策本人强调会按烘焙度调整粉水比与研磨度。",
+            steps: [
+                { name: "第一段 · 绕圈闷蒸",     time: "0:00", percentage: 0.12, note: "注入粉量 2 倍的热水，螺旋绕圈充分润湿——这是全程唯一一次绕圈。闷蒸 30 秒。" },
+                { name: "第二段 · 中心一注到底", time: "0:30", percentage: 0.88, note: "水流对准粉床正中心连续注水，40–45 秒内注至总量，全程定点、不绕圈、不扰动。随后静置滴滤，2:00–2:15 完成。" },
             ],
         },
         fukahori: {

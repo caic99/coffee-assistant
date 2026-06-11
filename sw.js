@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coffee-assistant-v8.21'; // 升级缓存版本号
+const CACHE_NAME = 'coffee-assistant-v8.22'; // 升级缓存版本号
 // 需要预缓存的本地文件列表（注意：cache.addAll 是原子操作，任何一个失败都会导致 SW 安装失败，
 // 所以这里只放同源文件，绝不放第三方 CDN / 字体）
 const ASSETS = [
